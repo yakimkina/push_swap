@@ -1,21 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: enikole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/30 19:16:34 by enikole           #+#    #+#             */
-/*   Updated: 2019/08/02 14:56:13 by enikole          ###   ########.fr       */
+/*   Created: 2019/04/03 18:17:46 by enikole           #+#    #+#             */
+/*   Updated: 2019/04/07 15:19:00 by enikole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
-# include "libft/includes/libft.h"
-# include <stdlib.h>
-# include <sys/types.h>
-# include <sys/uio.h>
-# include <unistd.h>
+#include <string.h>
 
-#endif
+void					*ft_memset(void *b, int c, size_t len)
+{
+	unsigned	char	*dest;
+
+	dest = (unsigned char*)b;
+	while (len--)
+	{
+		*dest = (unsigned char)c;
+		dest++;
+	}
+	return ((void*)b);
+}

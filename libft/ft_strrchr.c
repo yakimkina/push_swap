@@ -1,21 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: enikole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/30 19:16:34 by enikole           #+#    #+#             */
-/*   Updated: 2019/08/02 14:56:13 by enikole          ###   ########.fr       */
+/*   Created: 2019/04/06 12:14:39 by enikole           #+#    #+#             */
+/*   Updated: 2019/07/31 16:57:54 by enikole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
-# include "libft/includes/libft.h"
-# include <stdlib.h>
-# include <sys/types.h>
-# include <sys/uio.h>
-# include <unistd.h>
+#include "includes/libft.h"
 
-#endif
+char		*ft_strrchr(const char *s, int c)
+{
+	size_t	len;
+
+	len = ft_strlen(s) + 1;
+	while (len--)
+	{
+		if (s[len] == (char)c)
+			return ((char*)&s[len]);
+	}
+	return (NULL);
+}

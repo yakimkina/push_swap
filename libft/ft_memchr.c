@@ -1,21 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: enikole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/30 19:16:34 by enikole           #+#    #+#             */
-/*   Updated: 2019/08/02 14:56:13 by enikole          ###   ########.fr       */
+/*   Created: 2019/04/04 12:54:25 by enikole           #+#    #+#             */
+/*   Updated: 2019/04/11 14:21:32 by enikole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
-# include "libft/includes/libft.h"
-# include <stdlib.h>
-# include <sys/types.h>
-# include <sys/uio.h>
-# include <unistd.h>
+#include <string.h>
 
-#endif
+void					*ft_memchr(const void *s, int c, size_t n)
+{
+	unsigned	char	*str;
+
+	str = (unsigned char*)s;
+	while (n--)
+	{
+		if (*str == (unsigned char)c)
+			return ((void*)str);
+		str++;
+	}
+	return (NULL);
+}

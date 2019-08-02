@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   ft_memdel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: enikole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/30 19:16:34 by enikole           #+#    #+#             */
-/*   Updated: 2019/08/02 14:56:13 by enikole          ###   ########.fr       */
+/*   Created: 2019/04/07 12:29:28 by enikole           #+#    #+#             */
+/*   Updated: 2019/04/07 20:16:50 by enikole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
-# include "libft/includes/libft.h"
-# include <stdlib.h>
-# include <sys/types.h>
-# include <sys/uio.h>
-# include <unistd.h>
+#include <stdlib.h>
 
-#endif
+void		ft_memdel(void **ap)
+{
+	if (!ap)
+		return ;
+	free(*ap);
+	*ap = NULL;
+}

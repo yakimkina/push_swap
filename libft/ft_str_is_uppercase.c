@@ -1,21 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   ft_str_is_uppercase.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: enikole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/30 19:16:34 by enikole           #+#    #+#             */
-/*   Updated: 2019/08/02 14:56:13 by enikole          ###   ########.fr       */
+/*   Created: 2019/02/05 20:05:06 by enikole           #+#    #+#             */
+/*   Updated: 2019/04/13 14:56:13 by enikole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
-# include "libft/includes/libft.h"
-# include <stdlib.h>
-# include <sys/types.h>
-# include <sys/uio.h>
-# include <unistd.h>
-
-#endif
+int		ft_str_is_uppercase(char *str)
+{
+	while (*str != '\0')
+	{
+		if (*str >= 65 && *str <= 90)
+			str++;
+		else
+			return (0);
+	}
+	return (1);
+}

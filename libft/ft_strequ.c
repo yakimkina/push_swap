@@ -1,21 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   ft_strequ.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: enikole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/30 19:16:34 by enikole           #+#    #+#             */
-/*   Updated: 2019/08/02 14:56:13 by enikole          ###   ########.fr       */
+/*   Created: 2019/04/07 14:48:24 by enikole           #+#    #+#             */
+/*   Updated: 2019/07/31 16:56:49 by enikole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
-# include "libft/includes/libft.h"
-# include <stdlib.h>
-# include <sys/types.h>
-# include <sys/uio.h>
-# include <unistd.h>
+#include "includes/libft.h"
 
-#endif
+int			ft_strequ(char const *s1, char const *s2)
+{
+	size_t	len;
+
+	if (!s1 || !s2)
+		return (1);
+	len = ft_strlen(s1);
+	if ((size_t)(-1) == len)
+		return (1);
+	return (ft_strnequ(s1, s2, len + 1));
+}

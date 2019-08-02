@@ -1,21 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   ft_memalloc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: enikole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/30 19:16:34 by enikole           #+#    #+#             */
-/*   Updated: 2019/08/02 14:56:13 by enikole          ###   ########.fr       */
+/*   Created: 2019/04/07 12:15:02 by enikole           #+#    #+#             */
+/*   Updated: 2019/07/31 16:53:38 by enikole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
-# include "libft/includes/libft.h"
-# include <stdlib.h>
-# include <sys/types.h>
-# include <sys/uio.h>
-# include <unistd.h>
+#include <stdlib.h>
+#include "includes/libft.h"
 
-#endif
+void		*ft_memalloc(size_t size)
+{
+	void	*str;
+	size_t	i;
+
+	i = 0;
+	if (!size)
+		return (NULL);
+	if ((str = (void*)malloc(sizeof(void) * (size))) != NULL)
+		ft_bzero(str, size);
+	return (str);
+}

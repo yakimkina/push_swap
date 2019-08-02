@@ -1,21 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   ft_strsub.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: enikole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/30 19:16:34 by enikole           #+#    #+#             */
-/*   Updated: 2019/08/02 14:56:13 by enikole          ###   ########.fr       */
+/*   Created: 2019/04/07 15:31:20 by enikole           #+#    #+#             */
+/*   Updated: 2019/04/11 15:42:58 by enikole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
-# include "libft/includes/libft.h"
-# include <stdlib.h>
-# include <sys/types.h>
-# include <sys/uio.h>
-# include <unistd.h>
+#include <stdlib.h>
 
-#endif
+char					*ft_strsub(char const *s, unsigned int start,
+		size_t len)
+{
+	unsigned	int		i;
+	char				*str;
+
+	i = 0;
+	if ((size_t)(-1) == len || !s)
+		return (NULL);
+	if ((str = (char*)malloc(sizeof(char) * (len + 1))) != NULL)
+	{
+		while (i < (unsigned int)len)
+		{
+			str[i] = s[start + i];
+			i++;
+		}
+		str[i] = '\0';
+	}
+	return (str);
+}

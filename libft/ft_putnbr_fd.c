@@ -1,21 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: enikole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/30 19:16:34 by enikole           #+#    #+#             */
-/*   Updated: 2019/08/02 14:56:13 by enikole          ###   ########.fr       */
+/*   Created: 2019/04/07 14:38:14 by enikole           #+#    #+#             */
+/*   Updated: 2019/07/31 16:54:08 by enikole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
-# include "libft/includes/libft.h"
-# include <stdlib.h>
-# include <sys/types.h>
-# include <sys/uio.h>
-# include <unistd.h>
+#include "includes/libft.h"
 
-#endif
+void		ft_putnbr_fd(int n, int fd)
+{
+	int		fl;
+
+	fl = 1;
+	if (n < 0)
+	{
+		ft_putchar_fd('-', fd);
+		fl = -1;
+	}
+	if ((n / 10) != 0)
+		ft_putnbr_fd((n / 10) * fl, fd);
+	ft_putchar_fd((n % 10) * fl + 48, fd);
+}

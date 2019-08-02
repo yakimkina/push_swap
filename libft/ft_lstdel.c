@@ -1,21 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   ft_lstdel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: enikole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/30 19:16:34 by enikole           #+#    #+#             */
-/*   Updated: 2019/08/02 14:56:13 by enikole          ###   ########.fr       */
+/*   Created: 2019/04/08 17:04:17 by enikole           #+#    #+#             */
+/*   Updated: 2019/07/31 16:53:19 by enikole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
-# include "libft/includes/libft.h"
-# include <stdlib.h>
-# include <sys/types.h>
-# include <sys/uio.h>
-# include <unistd.h>
+#include <stdlib.h>
+#include "includes/libft.h"
 
-#endif
+void		ft_lstdel(t_list **alst, void (*del)(void *, size_t))
+{
+	t_list	*tmp;
+
+	if (!(*alst) || !alst || !del)
+		return ;
+	while (*alst != NULL)
+	{
+		del((*alst)->content, (*alst)->content_size);
+		tmp = *alst;
+		*alst = (*alst)->next;
+		free(tmp);
+	}
+	ft_memdel((void**)alst);
+}

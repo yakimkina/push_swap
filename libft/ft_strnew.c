@@ -1,21 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   ft_strnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: enikole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/30 19:16:34 by enikole           #+#    #+#             */
-/*   Updated: 2019/08/02 14:56:13 by enikole          ###   ########.fr       */
+/*   Created: 2019/04/07 14:52:56 by enikole           #+#    #+#             */
+/*   Updated: 2019/07/31 16:57:46 by enikole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
-# include "libft/includes/libft.h"
-# include <stdlib.h>
-# include <sys/types.h>
-# include <sys/uio.h>
-# include <unistd.h>
+#include <stdlib.h>
+#include "includes/libft.h"
 
-#endif
+char		*ft_strnew(size_t size)
+{
+	char	*str;
+
+	if ((size_t)(-1) == size)
+		return (NULL);
+	if ((str = (char*)malloc(sizeof(char) * (size + 1))) != NULL)
+	{
+		str[size] = '\0';
+		ft_bzero(str, size);
+	}
+	return (str);
+}

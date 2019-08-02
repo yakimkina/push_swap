@@ -1,21 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   ft_strncat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: enikole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/30 19:16:34 by enikole           #+#    #+#             */
-/*   Updated: 2019/08/02 14:56:13 by enikole          ###   ########.fr       */
+/*   Created: 2019/04/06 11:33:24 by enikole           #+#    #+#             */
+/*   Updated: 2019/07/31 16:57:28 by enikole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
-# include "libft/includes/libft.h"
-# include <stdlib.h>
-# include <sys/types.h>
-# include <sys/uio.h>
-# include <unistd.h>
+#include "includes/libft.h"
 
-#endif
+char		*ft_strncat(char *s1, const char *s2, size_t n)
+{
+	size_t	l1;
+	size_t	i;
+
+	i = 0;
+	l1 = ft_strlen(s1);
+	while (s2[i] != '\0' && i < n)
+	{
+		s1[l1 + i] = s2[i];
+		i++;
+	}
+	s1[l1 + i] = '\0';
+	return (s1);
+}
