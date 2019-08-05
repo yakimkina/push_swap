@@ -6,11 +6,35 @@
 /*   By: enikole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 19:51:51 by enikole           #+#    #+#             */
-/*   Updated: 2019/08/05 00:55:40 by enikole          ###   ########.fr       */
+/*   Updated: 2019/08/05 12:16:46 by enikole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+static	void		check(t_stack *stack)
+{
+	int				i;
+	char			fl;
+
+	i = 0;
+	fl = 1;
+	while (i < (stack->la - 1))
+	{
+		if ((stack->a)[i] < (stack->a)[i + 1])
+			i++;
+		else
+		{
+			fl = 0;
+			break ;
+		}
+	}
+	fl = (stack->b == NULL && stack->lb == 0) ? (fl) : (0);
+	if (fl)
+		write(1, "OK\n", 3);
+	else
+		write(1, "KO\n", 3);
+}
 
 static	char		instructions(char *line, t_stack *stack)
 {
@@ -21,11 +45,14 @@ static	char		instructions(char *line, t_stack *stack)
 		else if (line[1] == 'b' && line[2] == 0)
 			return (swap(stack->b, stack->lb));
 		else if (line[1] == 's' && line[2] == 0)
+			return (swap(stack->a, stack->la) && swap(stack->b, stack->lb));
 	}
 	else if (line[0] == 'p')
 	{
 		if (line[1] == 'a' && line[2] == 0)
+			return (push(&stack->a, &stack->b, &stack->la, &stack->lb));
 		else if (line[1] == 'b' && line[2] == 0)
+			return (push(&stack->b, &stack->a, &stack->lb, &stack->la));
 	}
 	else if (line[0] == 'r')
 		return (r_inst(line, stack));
@@ -54,7 +81,7 @@ static	void		reading(t_stack *stack)
 		free(line);
 		if (!curr && fl)
 		{
-			//check(stack_a, stack_b, len);
+			check(stack);
 			return ;
 		}
 	}
@@ -114,7 +141,7 @@ int					main(int ac, char **av)
 	if (ac > 1)
 	{
 		stack.la = ac - 1;
-		stack.a = (int *)malloc(sizeof(int) * len);
+		stack.a = (int *)malloc(sizeof(int) * stack.la);
 		i = 0;
 		while (--ac)
 		{
