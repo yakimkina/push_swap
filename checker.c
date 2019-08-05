@@ -6,7 +6,7 @@
 /*   By: enikole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 19:51:51 by enikole           #+#    #+#             */
-/*   Updated: 2019/08/05 12:16:46 by enikole          ###   ########.fr       */
+/*   Updated: 2019/08/05 13:18:53 by enikole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ static	void		reading(t_stack *stack)
 	write(2, "Error\n", 6);
 }
 
-static	char		check_dupl(int *stack, int len)
+char				check_dupl(int *stack, int len)
 {
 	int				i;
 	int				j;
@@ -106,7 +106,7 @@ static	char		check_dupl(int *stack, int len)
 	return (0);
 }
 
-static	char		check_int(char *str)
+char				check_int(char *str)
 {
 	char			fl;
 
@@ -145,7 +145,8 @@ int					main(int ac, char **av)
 		i = 0;
 		while (--ac)
 		{
-			if (check_int(av[i + 1]) && ((curr = ft_atoi_long(av[i + 1])) <= MAX_INT && curr >= MIN_INT))
+			if (check_int(av[i + 1]) && ((curr = ft_atoi_long(av[i + 1])) <=
+						MAX_INT && curr >= MIN_INT))
 				(stack.a)[i++] = curr;
 			else
 				break ;
@@ -157,7 +158,7 @@ int					main(int ac, char **av)
 			//printf("stack :");
 			//i = 0;
 			//while (len--)
-			//	printf(" %d", stack[i++]);
+			//printf(" %d", stack[i++]);
 			//printf("\nEND_OF_STACK\n");
 			reading(&stack);
 		}

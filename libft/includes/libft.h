@@ -6,7 +6,7 @@
 /*   By: enikole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 13:28:01 by enikole           #+#    #+#             */
-/*   Updated: 2019/08/02 17:43:02 by enikole          ###   ########.fr       */
+/*   Updated: 2019/08/05 12:44:40 by enikole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include <string.h>
 # include "get_next_line.h"
 # include "ft_printf.h"
-
 
 typedef	struct		s_list
 {

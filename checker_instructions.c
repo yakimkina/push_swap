@@ -6,7 +6,7 @@
 /*   By: enikole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/03 15:21:52 by enikole           #+#    #+#             */
-/*   Updated: 2019/08/05 12:13:04 by enikole          ###   ########.fr       */
+/*   Updated: 2019/08/05 12:44:15 by enikole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ static	char	rotate(int **stack, int len)
 
 	if (len > 1)
 	{
-		i = 0;
+		i = -1;
 		tmp = (*stack)[0];
-		while (i < (len - 1))
-			(*stack)[i++] = (*stack)[i];
+		while (++i < (len - 1))
+			(*stack)[i] = (*stack)[i + 1];
 		(*stack)[i] = tmp;
 	}
 	return (1);
@@ -55,9 +55,11 @@ char			r_inst(char *line, t_stack *stack)
 		else if (line[2] == 'b' && line[3] == 0)
 			return (rev_rotate(&stack->b, stack->lb));
 		else if (line[2] == 'r' && line[3] == 0)
-			return (rev_rotate(&stack->a, stack->la) && rev_rotate(&stack->b, stack->lb));
+			return (rev_rotate(&stack->a, stack->la) &&
+					rev_rotate(&stack->b, stack->lb));
 		else if (line[2] == 0)
-			return (rotate(&stack->a, stack->la) && rotate(&stack->b, stack->lb));
+			return (rotate(&stack->a, stack->la) &&
+					rotate(&stack->b, stack->lb));
 	}
 	return (0);
 }
