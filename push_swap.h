@@ -6,7 +6,7 @@
 /*   By: enikole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 19:16:34 by enikole           #+#    #+#             */
-/*   Updated: 2019/08/05 00:56:09 by enikole          ###   ########.fr       */
+/*   Updated: 2019/08/05 09:53:35 by enikole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,6 @@ typedef struct		s_stack
 
 char		r_inst(char *line, t_stack *stack);
 char		swap(int *stack, int len);
+char		push(int **dst, int **src, int *len_dst, int *len_src);
 
 #endif
