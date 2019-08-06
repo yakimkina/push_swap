@@ -6,13 +6,13 @@
 /*   By: enikole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/03 15:21:52 by enikole           #+#    #+#             */
-/*   Updated: 2019/08/05 12:44:15 by enikole          ###   ########.fr       */
+/*   Updated: 2019/08/06 17:01:24 by enikole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static	char	rotate(int **stack, int len)
+char			rotate(int **stack, int len)
 {
 	int			i;
 	int			tmp;
@@ -28,7 +28,7 @@ static	char	rotate(int **stack, int len)
 	return (1);
 }
 
-static	char	rev_rotate(int **stack, int len)
+char			rev_rotate(int **stack, int len)
 {
 	int			tmp;
 
