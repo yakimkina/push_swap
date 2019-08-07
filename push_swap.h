@@ -6,7 +6,7 @@
 /*   By: enikole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 19:16:34 by enikole           #+#    #+#             */
-/*   Updated: 2019/08/06 17:02:07 by enikole          ###   ########.fr       */
+/*   Updated: 2019/08/07 13:48:46 by enikole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ typedef struct		s_stack
 
 char				check_int(char *str);
 char				check_dupl(int *stack, int len);
-char				r_inst(char *line, t_stack *stack);
 char				swap(int *stack, int len);
 char				push(int **dst, int **src, int *len_dst, int *len_src);
 char				rotate(int **stack, int len);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checker_instructions.c                             :+:      :+:    :+:   */
+/*   instructions.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: enikole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/03 15:21:52 by enikole           #+#    #+#             */
-/*   Updated: 2019/08/06 17:01:24 by enikole          ###   ########.fr       */
+/*   Updated: 2019/08/07 13:48:17 by enikole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,28 +40,6 @@ char			rev_rotate(int **stack, int len)
 		(*stack)[0] = tmp;
 	}
 	return (1);
-}
-
-char			r_inst(char *line, t_stack *stack)
-{
-	if (line[1] == 'a' && line[2] == 0)
-		return (rotate(&stack->a, stack->la));
-	else if (line[1] == 'b' && line[2] == 0)
-		return (rotate(&stack->b, stack->lb));
-	else if (line[1] == 'r')
-	{
-		if (line[2] == 'a' && line[3] == 0)
-			return (rev_rotate(&stack->a, stack->la));
-		else if (line[2] == 'b' && line[3] == 0)
-			return (rev_rotate(&stack->b, stack->lb));
-		else if (line[2] == 'r' && line[3] == 0)
-			return (rev_rotate(&stack->a, stack->la) &&
-					rev_rotate(&stack->b, stack->lb));
-		else if (line[2] == 0)
-			return (rotate(&stack->a, stack->la) &&
-					rotate(&stack->b, stack->lb));
-	}
-	return (0);
 }
 
 char			swap(int *stack, int len)

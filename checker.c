@@ -6,11 +6,33 @@
 /*   By: enikole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 19:51:51 by enikole           #+#    #+#             */
-/*   Updated: 2019/08/05 13:18:53 by enikole          ###   ########.fr       */
+/*   Updated: 2019/08/07 13:47:59 by enikole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+char			r_inst(char *line, t_stack *stack)
+{
+	if (line[1] == 'a' && line[2] == 0)
+		return (rotate(&stack->a, stack->la));
+	else if (line[1] == 'b' && line[2] == 0)
+		return (rotate(&stack->b, stack->lb));
+	else if (line[1] == 'r')
+	{
+		if (line[2] == 'a' && line[3] == 0)
+			return (rev_rotate(&stack->a, stack->la));
+		else if (line[2] == 'b' && line[3] == 0)
+			return (rev_rotate(&stack->b, stack->lb));
+		else if (line[2] == 'r' && line[3] == 0)
+			return (rev_rotate(&stack->a, stack->la) &&
+					rev_rotate(&stack->b, stack->lb));
+		else if (line[2] == 0)
+			return (rotate(&stack->a, stack->la) &&
+					rotate(&stack->b, stack->lb));
+	}
+	return (0);
+}
 
 static	void		check(t_stack *stack)
 {
@@ -65,71 +87,27 @@ static	void		reading(t_stack *stack)
 	int				curr;
 	char			*line;
 
+//	line = ft_strnew(3);
+//	if (get_next_line(0, &line) > 0)
+//	{
+//		stack->b = NULL;
+//		stack->lb = 0;
+//		fl = instructions(line, stack);
+	fl = 1;
 	line = ft_strnew(3);
-	if (get_next_line(0, &line) > 0)
+	while (((curr = get_next_line(0, &line)) > 0) && fl)
 	{
-		stack->b = NULL;
-		stack->lb = 0;
 		fl = instructions(line, stack);
 		line = ft_strnew(3);
-		while (((curr = get_next_line(0, &line)) > 0) && fl)
-		{
-			fl = instructions(line, stack);
-			line = ft_strnew(3);
-			//printf("line: %s\n", line);
-		}
-		free(line);
-		if (!curr && fl)
-		{
-			check(stack);
-			return ;
-		}
 	}
+	free(line);
+	if (!curr && fl)
+	{
+		check(stack);
+		return ;
+	}
+//	}
 	write(2, "Error\n", 6);
-}
-
-char				check_dupl(int *stack, int len)
-{
-	int				i;
-	int				j;
-
-	i = len;
-	while (--i)
-	{
-		j = i;
-		while (j--)
-		{
-			if (stack[i] == stack[j])
-				return (1);
-		}
-	}
-	return (0);
-}
-
-char				check_int(char *str)
-{
-	char			fl;
-
-	fl = 1;
-	while (*str == 32 || (*str >= 9 && *str <= 13))
-		str++;
-	while (*str)
-	{
-		if (fl && (*str == '-' || *str == '+'))
-		{
-			fl = 0;
-			str++;
-		}
-		else if ((*str >= '0' && *str <= '9'))
-		{
-			str++;
-			if (!(*str))
-				return (1);
-		}
-		else
-			return (0);
-	}
-	return (0);
 }
 
 int					main(int ac, char **av)

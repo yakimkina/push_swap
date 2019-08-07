@@ -6,13 +6,28 @@
 /*   By: enikole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/05 12:51:55 by enikole           #+#    #+#             */
-/*   Updated: 2019/08/06 17:34:01 by enikole          ###   ########.fr       */
+/*   Updated: 2019/08/07 17:55:23 by enikole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static	void		sort(t_stack *stack)
+static	char		is_sort(t_stack stack)
+{
+	int				i;
+
+	i = 0;
+	while (i < (stack.la - 1))
+	{
+		if (stack.a[i] < stack.a[i + 1])
+			i++;
+		else
+			return (1);
+	}
+	return (0);
+}
+
+/* static	void		sort(t_stack *stack)
 {
 	if (stack->la)
 	{
@@ -20,6 +35,7 @@ static	void		sort(t_stack *stack)
 		{
 			push(&stack->b, &stack->a, &stack->lb, &stack->la);
 			write(1, "pb\n", 3);
+			sort(stack);
 		}
 		else if ((stack->a)[0] < (stack->b)[0])
 		{
@@ -27,12 +43,111 @@ static	void		sort(t_stack *stack)
 			write(1, "ra\n", 3);
 			push(&stack->a, &stack->b, &stack->la, &stack->lb);
 			write(1, "pa\n", 3);
+			while (stack->b && (stack->a)[stack->la - 1] < (stack->b)[0])
+			{
+				push(&stack->a, &stack->b, &stack->la, &stack->lb);
+				write(1, "pa\n", 3);
+			}
 			rev_rotate(&stack->a, stack->la);
 			write(1, "rra\n", 4);
 			sort(stack);
 		}
 	}
+	else
+	{
+		while (stack->lb)
+		{
+			push(&stack->a, &stack->b, &stack->la, &stack->lb);
+			write(1, "pa\n", 3);
+		}
+	}
+} */
+
+/* static	int			*intcpy(int *dst, int *src, int len)
+{
+	while (len--)
+		dst[len] = src[len];
+	return (dst);
 }
+
+static	int			*bubble_sort(int *stack, int len)
+{
+	int				i;
+	int				j;
+	int				tmp;
+	int				*mas;
+
+	mas = (int *)malloc(sizeof(int) * len);
+	mas = intcpy(mas, stack, len);
+	i = 0;
+	while (i < len)
+	{
+		j = 0;
+		while (j < (len - 1))
+		{
+			if (mas[j] > mas[j + 1])
+			{
+				tmp = mas[j];
+				mas[j] = mas[j + 1];
+				mas[j + 1] = tmp;
+			}
+			j++;
+		}
+		i++;
+	}
+	return (mas);
+}
+
+static	void		sort(t_stack *stack)
+{
+	int				*mas;
+	int				i;
+	int				j;
+	int				del;
+
+	mas = bubble_sort(stack->a, stack->la);
+	//i = 0;
+	//printf("sort mas:\n");
+	//while (i < stack->la)
+	//	printf("%d ", mas[i++]);
+	//printf("\n");
+	i = 0;
+	while (stack->la)
+	{
+		j = 0;
+		while (mas[i] != stack->a[j])
+			j++;
+		//printf("j = %d, stack->la = %d\n", j, stack->la);
+		if ((del = (stack->la - j)) < j)
+		{
+			while (del--)
+			{
+				rev_rotate(&stack->a, stack->la);
+				write(1, "rra\n", 4);
+				//printf("del = %d\n", del);
+			}
+			push(&stack->b, &stack->a, &stack->lb, &stack->la);
+			write(1, "pb\n", 3);
+		}
+		else
+		{
+			while (j--)
+			{
+				rotate(&stack->a, stack->la);
+				write(1, "ra\n", 3);
+			}
+			push(&stack->b, &stack->a, &stack->lb, &stack->la);
+			write(1, "pb\n", 3);
+		}
+		i++;
+	}
+	while (stack->lb)
+	{
+		push(&stack->a, &stack->b, &stack->la, &stack->lb);
+		write(1, "pa\n", 3);
+	}
+	free(mas);
+} */
 
 int					main(int ac, char **av)
 {
@@ -59,12 +174,13 @@ int					main(int ac, char **av)
 		{
 			//printf("stack :");
 			//i = 0;
-			//while (len--)
-			//printf(" %d", stack[i++]);
+			//while (i < stack.la)
+				//printf(" %d", stack.a[i++]);
 			//printf("\nEND_OF_STACK\n");
 			stack.b = NULL;
 			stack.lb = 0;
-			sort(&stack);
+			if (is_sort(stack))
+				sort(&stack);
 		}
 		free(stack.a); //specify!!
 	}
