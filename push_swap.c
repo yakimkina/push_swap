@@ -6,7 +6,7 @@
 /*   By: enikole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/05 12:51:55 by enikole           #+#    #+#             */
-/*   Updated: 2019/08/07 17:55:23 by enikole          ###   ########.fr       */
+/*   Updated: 2019/08/09 17:01:14 by enikole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,35 @@ static	void		sort(t_stack *stack)
 	free(mas);
 } */
 
+static	int			quickselect(int *mas, int len)
+{
+	t_stack			new;
+	int				pivot;
+	int				k;
+	int				i;
+
+	pivot = mas[0];
+	k = len / 2 + 1;
+	i = 0;
+	new.la = 0;
+	new.lb = 0;
+	while (i < len)
+		(mas[i++] >= pivot) ? (new.lb++) : (new.la++);
+	new.a = (int *)malloc(sizeof(int) * new.la);
+	new.b = (int *)malloc(sizeof(int) * new.lb);
+	i = 0;
+	while (i < len)
+	{
+		if ()
+	}
+}
+
+static	void		quicksort(t_stack *stack)
+{
+	int				med;
+	med = find_medium(stack->a, stack->la);
+}
+
 int					main(int ac, char **av)
 {
 	t_stack			stack;
@@ -180,7 +209,7 @@ int					main(int ac, char **av)
 			stack.b = NULL;
 			stack.lb = 0;
 			if (is_sort(stack))
-				sort(&stack);
+				quicksort(&stack);
 		}
 		free(stack.a); //specify!!
 	}

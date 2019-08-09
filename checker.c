@@ -6,13 +6,13 @@
 /*   By: enikole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 19:51:51 by enikole           #+#    #+#             */
-/*   Updated: 2019/08/07 13:47:59 by enikole          ###   ########.fr       */
+/*   Updated: 2019/08/09 12:49:31 by enikole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-char			r_inst(char *line, t_stack *stack)
+char			r_instructions(char *line, t_stack *stack)
 {
 	if (line[1] == 'a' && line[2] == 0)
 		return (rotate(&stack->a, stack->la));
@@ -77,7 +77,7 @@ static	char		instructions(char *line, t_stack *stack)
 			return (push(&stack->b, &stack->a, &stack->lb, &stack->la));
 	}
 	else if (line[0] == 'r')
-		return (r_inst(line, stack));
+		return (r_instructions(line, stack));
 	return (0);
 }
 
