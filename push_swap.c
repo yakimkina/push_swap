@@ -6,7 +6,7 @@
 /*   By: enikole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/05 12:51:55 by enikole           #+#    #+#             */
-/*   Updated: 2019/08/09 17:01:14 by enikole          ###   ########.fr       */
+/*   Updated: 2019/08/10 17:28:55 by enikole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,9 @@ static	char		is_sort(t_stack stack)
 	while (len--)
 		dst[len] = src[len];
 	return (dst);
-}
+} */
 
-static	int			*bubble_sort(int *stack, int len)
+static	int			bubble_sort(int *stack, int len) //rewrite this to quickselect
 {
 	int				i;
 	int				j;
@@ -95,10 +95,11 @@ static	int			*bubble_sort(int *stack, int len)
 		}
 		i++;
 	}
-	return (mas);
+	tmp = mas[(len / 2)];
+	return (tmp);
 }
 
-static	void		sort(t_stack *stack)
+/* static	void		sort(t_stack *stack)
 {
 	int				*mas;
 	int				i;
@@ -149,15 +150,13 @@ static	void		sort(t_stack *stack)
 	free(mas);
 } */
 
-static	int			quickselect(int *mas, int len)
+/* static	int			quickselect(int *mas, int len, int k)
 {
 	t_stack			new;
 	int				pivot;
-	int				k;
 	int				i;
 
 	pivot = mas[0];
-	k = len / 2 + 1;
 	i = 0;
 	new.la = 0;
 	new.lb = 0;
@@ -170,12 +169,61 @@ static	int			quickselect(int *mas, int len)
 	{
 		if ()
 	}
+} */
+
+static	void		three_sort_stack_a(int	*stack, int len)
+{
+	if (stack[0] < stack[1] && stack[1] > stack[2])
+	{
+		rev_rotate(&stack, len);
+		write(1, "rra\n", 4);
+		if (stack[0] < stack[2])
+		{
+			swap(stack, len);
+			write(1, "sa\n", 3);
+		}
+	}
+	else if (stack[0] > stack[1])
+	{
+		if (stack[1] < stack[2] && stack[0] < stack[2])
+		{
+			swap(stack, len);
+			write(1, "sa\n", 3);
+		}
+		else if (stack[1] < stack[2])
+	}
 }
 
-static	void		quicksort(t_stack *stack)
+static	void		quicksort_stack_b(t_stack *stack)
+{}
+
+static	void		quicksort_stack_a(t_stack *stack)
 {
+	int				i;
 	int				med;
-	med = find_medium(stack->a, stack->la);
+
+	med = bubble_sort(stack->a, stack->la);
+	i = ((stack->la / 2) % 2 == 0) ? (stack->la / 2) : (stack->la / 2 + 1);
+	while (stack->la != i)
+	{
+		if ((stack->a)[0] < med)
+		{
+			push(&stack->b, &stack->a, &stack->lb, &stack->la);
+			write(1, "pb\n", 3);
+		}
+		else
+		{
+			rotate(&stack->a, stack->la);
+			write(1, "ra\n", 3);
+		}
+	}
+	if (stack->la > 3)
+		quicksort_stack_a(stack);
+	else
+	{
+		three_sort_stack_a(stack->a, stack->la);
+		quicksort_stack_b(stack);
+	}
 }
 
 int					main(int ac, char **av)
