@@ -6,33 +6,11 @@
 /*   By: enikole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 19:51:51 by enikole           #+#    #+#             */
-/*   Updated: 2019/08/09 12:49:31 by enikole          ###   ########.fr       */
+/*   Updated: 2019/08/11 11:39:40 by enikole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-char			r_instructions(char *line, t_stack *stack)
-{
-	if (line[1] == 'a' && line[2] == 0)
-		return (rotate(&stack->a, stack->la));
-	else if (line[1] == 'b' && line[2] == 0)
-		return (rotate(&stack->b, stack->lb));
-	else if (line[1] == 'r')
-	{
-		if (line[2] == 'a' && line[3] == 0)
-			return (rev_rotate(&stack->a, stack->la));
-		else if (line[2] == 'b' && line[3] == 0)
-			return (rev_rotate(&stack->b, stack->lb));
-		else if (line[2] == 'r' && line[3] == 0)
-			return (rev_rotate(&stack->a, stack->la) &&
-					rev_rotate(&stack->b, stack->lb));
-		else if (line[2] == 0)
-			return (rotate(&stack->a, stack->la) &&
-					rotate(&stack->b, stack->lb));
-	}
-	return (0);
-}
 
 static	void		check(t_stack *stack)
 {
@@ -56,6 +34,28 @@ static	void		check(t_stack *stack)
 		write(1, "OK\n", 3);
 	else
 		write(1, "KO\n", 3);
+}
+
+char			r_instructions(char *line, t_stack *stack)
+{
+	if (line[1] == 'a' && line[2] == 0)
+		return (rotate(&stack->a, stack->la));
+	else if (line[1] == 'b' && line[2] == 0)
+		return (rotate(&stack->b, stack->lb));
+	else if (line[1] == 'r')
+	{
+		if (line[2] == 'a' && line[3] == 0)
+			return (rev_rotate(&stack->a, stack->la));
+		else if (line[2] == 'b' && line[3] == 0)
+			return (rev_rotate(&stack->b, stack->lb));
+		else if (line[2] == 'r' && line[3] == 0)
+			return (rev_rotate(&stack->a, stack->la) &&
+					rev_rotate(&stack->b, stack->lb));
+		else if (line[2] == 0)
+			return (rotate(&stack->a, stack->la) &&
+					rotate(&stack->b, stack->lb));
+	}
+	return (0);
 }
 
 static	char		instructions(char *line, t_stack *stack)

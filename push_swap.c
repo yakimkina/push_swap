@@ -6,7 +6,7 @@
 /*   By: enikole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/05 12:51:55 by enikole           #+#    #+#             */
-/*   Updated: 2019/08/10 17:28:55 by enikole          ###   ########.fr       */
+/*   Updated: 2019/08/11 16:51:23 by enikole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static	char		is_sort(t_stack stack)
 	}
 } */
 
-/* static	int			*intcpy(int *dst, int *src, int len)
+/*static	int			*intcpy(int *dst, int *src, int len)
 {
 	while (len--)
 		dst[len] = src[len];
@@ -171,13 +171,13 @@ static	int			bubble_sort(int *stack, int len) //rewrite this to quickselect
 	}
 } */
 
-static	void		three_sort_stack_a(int	*stack, int len)
+static	void		three_sort_stack_b(int *stack, int len)
 {
 	if (stack[0] < stack[1] && stack[1] > stack[2])
 	{
 		rev_rotate(&stack, len);
 		write(1, "rra\n", 4);
-		if (stack[0] < stack[2])
+		if (stack[1] < stack[0])
 		{
 			swap(stack, len);
 			write(1, "sa\n", 3);
@@ -185,44 +185,135 @@ static	void		three_sort_stack_a(int	*stack, int len)
 	}
 	else if (stack[0] > stack[1])
 	{
-		if (stack[1] < stack[2] && stack[0] < stack[2])
+		if (stack[0] < stack[2])
 		{
 			swap(stack, len);
 			write(1, "sa\n", 3);
 		}
 		else if (stack[1] < stack[2])
+		{
+			rotate(&stack, len);
+			write(1, "ra\n", 3);
+		}
+		else
+		{
+			swap(stack, len);
+			write(1, "sa\n", 3);
+			rev_rotate(&stack, len);
+			write(1, "rra\n", 4);
+		}
 	}
 }
 
 static	void		quicksort_stack_b(t_stack *stack)
-{}
+{
+	int				i;
+	int				med;
+
+	if (stack->lb > 3)
+	{
+		med = bubble_sort(stack->b, stack->lb);
+		i = stack->lb / 2;
+		while (stack->lb != i)
+		{
+			if ((stack->b)[0] > med)
+			{
+				push(&stack->a, &stack->b, &stack->la, &stack->lb);
+				write(1, "pa\n", 3);
+			}
+			else
+			{
+				rotate(&stack->b, stack->lb);
+				write(1, "rb\n", 3);
+			}
+		}
+		//length of stack a
+		quicksort_stack_b(stack);
+	}
+	else
+	{
+		if (stack->lb == 3)
+			three_sort_stack_b(stack->b, stack->lb);
+		else if (stack->lb == 2 && (stack->b)[0] > (stack->b)[1])
+		{
+			swap(stack->b, stack->lb);
+			write(1, "sa\n", 3);
+		}
+		quicksort_stack_a(stack);
+	}
+}
+
+static	void		three_sort_stack_a(int	*stack, int len)
+{
+	if (stack[0] < stack[1] && stack[1] > stack[2])
+	{
+		rev_rotate(&stack, len);
+		write(1, "rra\n", 4);
+		if (stack[1] < stack[0])
+		{
+			swap(stack, len);
+			write(1, "sa\n", 3);
+		}
+	}
+	else if (stack[0] > stack[1])
+	{
+		if (stack[0] < stack[2])
+		{
+			swap(stack, len);
+			write(1, "sa\n", 3);
+		}
+		else if (stack[1] < stack[2])
+		{
+			rotate(&stack, len);
+			write(1, "ra\n", 3);
+		}
+		else
+		{
+			swap(stack, len);
+			write(1, "sa\n", 3);
+			rev_rotate(&stack, len);
+			write(1, "rra\n", 4);
+		}
+	}
+}
 
 static	void		quicksort_stack_a(t_stack *stack)
 {
 	int				i;
 	int				med;
 
-	med = bubble_sort(stack->a, stack->la);
-	i = ((stack->la / 2) % 2 == 0) ? (stack->la / 2) : (stack->la / 2 + 1);
-	while (stack->la != i)
-	{
-		if ((stack->a)[0] < med)
-		{
-			push(&stack->b, &stack->a, &stack->lb, &stack->la);
-			write(1, "pb\n", 3);
-		}
-		else
-		{
-			rotate(&stack->a, stack->la);
-			write(1, "ra\n", 3);
-		}
-	}
 	if (stack->la > 3)
+	{
+		med = bubble_sort(stack->a, stack->la);
+		i = ((stack->la / 2) % 2 == 0) ? (stack->la / 2) : (stack->la / 2 + 1);
+		while (stack->la != i)
+		{
+			if ((stack->a)[0] < med)
+			{
+				push(&stack->b, &stack->a, &stack->lb, &stack->la);
+				write(1, "pb\n", 3);
+			}
+			else
+			{
+				rotate(&stack->a, stack->la);
+				write(1, "ra\n", 3);
+			}
+		}
+		//do smth with stack->b(need to hyde the previous part)
+		//maybe change length
 		quicksort_stack_a(stack);
+	}
 	else
 	{
-		three_sort_stack_a(stack->a, stack->la);
-		quicksort_stack_b(stack);
+		if (stack->la == 3)
+			three_sort_stack_a(stack->a, stack->la);
+		else if (stack->la == 2 && (stack->a)[0] > (stack->a)[1])
+		{
+			swap(stack->a, stack->la);
+			write(1, "sa\n", 3);
+		}
+		if (stack->lb)
+			quicksort_stack_b(stack);
 	}
 }
 
@@ -257,7 +348,7 @@ int					main(int ac, char **av)
 			stack.b = NULL;
 			stack.lb = 0;
 			if (is_sort(stack))
-				quicksort(&stack);
+				quicksort_stack_a(&stack);
 		}
 		free(stack.a); //specify!!
 	}
