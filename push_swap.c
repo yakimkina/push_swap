@@ -6,7 +6,7 @@
 /*   By: enikole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/05 12:51:55 by enikole           #+#    #+#             */
-/*   Updated: 2019/08/16 23:40:25 by enikole          ###   ########.fr       */
+/*   Updated: 2019/08/21 12:00:49 by enikole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -307,37 +307,40 @@ static	void		quicksort_stack_b(t_stack *stack)
 
 static	void		three_sort_stack_a(int	*stack, int len)
 {
-	//NEED NEW
-	if (stack[0] < stack[1] && stack[1] > stack[2])
+	if (stack[0] < stack[1])
 	{
-		rev_rotate(&stack, len);
-		write(1, "rra\n", 4);
-		if (stack[1] < stack[0])
+		rotate(&stack, len);
+		write(1, "ra\n", 3);
+		if (stack[0] > stack[1])
 		{
 			swap(stack, len);
 			write(1, "sa\n", 3);
+			if (stack[len - 1] > stack[0])
+			{
+				rev_rotate(&stack, len);
+				write(1, "rra\n", 4);
+				swap(stack, len);
+				write(1, "sa\n", 3);
+				rotate(&stack, len);
+				write(1, "ra\n", 3);
+			}
 		}
 	}
-	else if (stack[0] > stack[1])
+	else
 	{
-		if (stack[0] < stack[2])
+		if (stack[1] < stack[2])
 		{
 			swap(stack, len);
 			write(1, "sa\n", 3);
 		}
-		else if (stack[1] < stack[2])
-		{
-			rotate(&stack, len);
-			write(1, "ra\n", 3);
-		}
-		else
-		{
-			swap(stack, len);
-			write(1, "sa\n", 3);
-			rev_rotate(&stack, len);
-			write(1, "rra\n", 4);
-		}
+		rotate(&stack, len);
+		write(1, "ra\n", 3);
+		if ()
 	}
+	rotate(&stack, len);
+	write(1, "ra\n", 3);
+	rotate(&stack, len);
+	write(1, "ra\n", 3);
 }
 
 static	void		quicksort_stack_a(t_stack *stack, int len)
