@@ -6,22 +6,22 @@
 /*   By: enikole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 19:51:51 by enikole           #+#    #+#             */
-/*   Updated: 2019/08/11 11:39:40 by enikole          ###   ########.fr       */
+/*   Updated: 2019/08/24 00:52:57 by enikole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static	void		check(t_stack *stack)
+static	void		check(t_stack a, t_stack b)
 {
 	int				i;
 	char			fl;
 
 	i = 0;
 	fl = 1;
-	while (i < (stack->la - 1))
+	while (i < (a.size - 1))
 	{
-		if ((stack->a)[i] < (stack->a)[i + 1])
+		if ((a.data)[i] < (a.data)[i + 1])
 			i++;
 		else
 		{
@@ -29,60 +29,59 @@ static	void		check(t_stack *stack)
 			break ;
 		}
 	}
-	fl = (stack->b == NULL && stack->lb == 0) ? (fl) : (0);
+	fl = (b.data == NULL && b.size == 0) ? (fl) : (0);
 	if (fl)
 		write(1, "OK\n", 3);
 	else
 		write(1, "KO\n", 3);
 }
 
-char			r_instructions(char *line, t_stack *stack)
+static	char		r_instructions(char *line, t_stack *a, t_stack *b)
 {
 	if (line[1] == 'a' && line[2] == 0)
-		return (rotate(&stack->a, stack->la));
+		return (rotate(a, NULL));
 	else if (line[1] == 'b' && line[2] == 0)
-		return (rotate(&stack->b, stack->lb));
+		return (rotate(b, NULL));
 	else if (line[1] == 'r')
 	{
 		if (line[2] == 'a' && line[3] == 0)
-			return (rev_rotate(&stack->a, stack->la));
+			return (rev_rotate(a, NULL));
 		else if (line[2] == 'b' && line[3] == 0)
-			return (rev_rotate(&stack->b, stack->lb));
+			return (rev_rotate(b, NULL));
 		else if (line[2] == 'r' && line[3] == 0)
-			return (rev_rotate(&stack->a, stack->la) &&
-					rev_rotate(&stack->b, stack->lb));
+			return (rev_rotate(a, NULL) && rev_rotate(b, NULL));
 		else if (line[2] == 0)
-			return (rotate(&stack->a, stack->la) &&
-					rotate(&stack->b, stack->lb));
+			return (rotate(a, NULL) && rotate(b, NULL));
 	}
 	return (0);
 }
 
-static	char		instructions(char *line, t_stack *stack)
+static	char		instructions(char *line, t_stack *a, t_stack *b)
 {
 	if (line[0] == 's')
 	{
 		if (line[1] == 'a' && line[2] == 0)
-			return (swap(stack->a, stack->la));
+			return (swap(a, NULL));
 		else if (line[1] == 'b' && line[2] == 0)
-			return (swap(stack->b, stack->lb));
+			return (swap(b, NULL));
 		else if (line[1] == 's' && line[2] == 0)
-			return (swap(stack->a, stack->la) && swap(stack->b, stack->lb));
+			return (swap(a, NULL) && swap(b, NULL));
 	}
 	else if (line[0] == 'p')
 	{
 		if (line[1] == 'a' && line[2] == 0)
-			return (push(&stack->a, &stack->b, &stack->la, &stack->lb));
+			return (push(a, b, NULL));
 		else if (line[1] == 'b' && line[2] == 0)
-			return (push(&stack->b, &stack->a, &stack->lb, &stack->la));
+			return (push(a, b, NULL));
 	}
 	else if (line[0] == 'r')
-		return (r_instructions(line, stack));
+		return (r_instructions(line, a, b));
 	return (0);
 }
 
-static	void		reading(t_stack *stack)
+static	void		reading(t_stack *a)
 {
+	t_stack			b;
 	char			fl;
 	int				curr;
 	char			*line;
@@ -97,13 +96,13 @@ static	void		reading(t_stack *stack)
 	line = ft_strnew(3);
 	while (((curr = get_next_line(0, &line)) > 0) && fl)
 	{
-		fl = instructions(line, stack);
+		fl = instructions(line, a, &b);
 		line = ft_strnew(3);
 	}
 	free(line);
 	if (!curr && fl)
 	{
-		check(stack);
+		check(*a, b);
 		return ;
 	}
 //	}
@@ -112,24 +111,25 @@ static	void		reading(t_stack *stack)
 
 int					main(int ac, char **av)
 {
-	t_stack			stack;
+	t_stack			a;
 	int				i;
-	long	int		curr;
+	char			fl;
 
 	if (ac > 1)
 	{
-		stack.la = ac - 1;
-		stack.a = (int *)malloc(sizeof(int) * stack.la);
+		fl = (rec_str(&ac, &av, &a));
+		/* a.size = ac - 1;
+		a.data = (int *)malloc(sizeof(int) * a.size);
 		i = 0;
 		while (--ac)
 		{
 			if (check_int(av[i + 1]) && ((curr = ft_atoi_long(av[i + 1])) <=
 						MAX_INT && curr >= MIN_INT))
-				(stack.a)[i++] = curr;
+				(a.data)[i++] = curr;
 			else
 				break ;
-		}
-		if (ac || check_dupl(stack.a, stack.la))
+		} */
+		if (ac || check_dupl(a))
 			write(2, "Error\n", 6);
 		else
 		{
@@ -138,9 +138,15 @@ int					main(int ac, char **av)
 			//while (len--)
 			//printf(" %d", stack[i++]);
 			//printf("\nEND_OF_STACK\n");
-			reading(&stack);
+			reading(&a);
 		}
-		free(stack.a); //specify!!
+		free(a.data); //specify!!
+		if (fl)
+		{
+			i = 0;
+			while (av[i])
+				free(av[i++]);
+		}
 	}
 	return (0);
 }

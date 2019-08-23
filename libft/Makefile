@@ -6,7 +6,7 @@
 #    By: enikole <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/11 19:20:12 by enikole           #+#    #+#              #
-#    Updated: 2019/08/02 14:07:51 by enikole          ###   ########.fr        #
+#    Updated: 2019/08/23 23:54:14 by enikole          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -94,6 +94,7 @@ SRC = f_beauty.c \
 	ft_tolower.c \
 	ft_toupper.c \
 	ft_uib.c \
+	ft_wordcount.c \
 	fun_csp.c \
 	fun_di.c \
 	fun_f.c \

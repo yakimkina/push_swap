@@ -6,24 +6,24 @@
 /*   By: enikole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 10:08:11 by enikole           #+#    #+#             */
-/*   Updated: 2019/08/07 10:08:35 by enikole          ###   ########.fr       */
+/*   Updated: 2019/08/24 00:17:25 by enikole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-char				check_dupl(int *stack, int len)
+char				check_dupl(t_stack a)
 {
 	int				i;
 	int				j;
 
-	i = len;
+	i = a.size;
 	while (--i)
 	{
 		j = i;
 		while (j--)
 		{
-			if (stack[i] == stack[j])
+			if (a.data[i] == a.data[j])
 				return (1);
 		}
 	}

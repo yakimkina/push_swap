@@ -6,7 +6,11 @@
 /*   By: enikole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 13:28:01 by enikole           #+#    #+#             */
-/*   Updated: 2019/08/05 12:44:40 by enikole          ###   ########.fr       */
+<<<<<<< HEAD
+/*   Updated: 2019/08/23 23:53:35 by enikole          ###   ########.fr       */
+=======
+/*   Updated: 2019/08/01 14:54:58 by enikole          ###   ########.fr       */
+>>>>>>> 412157146a63774a1bad597d781dc75d1b430424
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,5 +99,6 @@ char				*ft_strupcase(char *str);
 char				*ft_strlowcase(char *str);
 int					ft_str_is_uppercase(char *str);
 int					ft_str_is_lowercase(char *str);
+int					ft_wordcount(char *str, char c);
 
 #endif
