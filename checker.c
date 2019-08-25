@@ -6,7 +6,7 @@
 /*   By: enikole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 19:51:51 by enikole           #+#    #+#             */
-/*   Updated: 2019/08/24 00:52:57 by enikole          ###   ########.fr       */
+/*   Updated: 2019/08/25 17:55:40 by enikole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@ static	void		check(t_stack a, t_stack b)
 
 	i = 0;
 	fl = 1;
+	//while(i < a.size)
+	//	printf("%d", a.data[i++]);
+	i = 0;
 	while (i < (a.size - 1))
 	{
 		if ((a.data)[i] < (a.data)[i + 1])
@@ -72,7 +75,10 @@ static	char		instructions(char *line, t_stack *a, t_stack *b)
 		if (line[1] == 'a' && line[2] == 0)
 			return (push(a, b, NULL));
 		else if (line[1] == 'b' && line[2] == 0)
-			return (push(a, b, NULL));
+		{
+			//printf("a.size = %d\n", a->size);
+			return (push(b, a, NULL));
+		}
 	}
 	else if (line[0] == 'r')
 		return (r_instructions(line, a, b));
@@ -94,6 +100,8 @@ static	void		reading(t_stack *a)
 //		fl = instructions(line, stack);
 	fl = 1;
 	line = ft_strnew(3);
+	b.data = NULL;
+	b.size = 0;
 	while (((curr = get_next_line(0, &line)) > 0) && fl)
 	{
 		fl = instructions(line, a, &b);
@@ -113,11 +121,16 @@ int					main(int ac, char **av)
 {
 	t_stack			a;
 	int				i;
-	char			fl;
+	int				fl;
 
 	if (ac > 1)
 	{
+		//printf("ac = %d, av[0] = %s\n", ac, av[0]);
 		fl = (rec_str(&ac, &av, &a));
+		//printf("ac = %d, a.size = %d\n", ac, a.size);
+		//i = 0;
+		//while (i < a.size)
+		//	printf("%d", a.data[i++]);
 		/* a.size = ac - 1;
 		a.data = (int *)malloc(sizeof(int) * a.size);
 		i = 0;
@@ -141,7 +154,7 @@ int					main(int ac, char **av)
 			reading(&a);
 		}
 		free(a.data); //specify!!
-		if (fl)
+		if (!fl)
 		{
 			i = 0;
 			while (av[i])

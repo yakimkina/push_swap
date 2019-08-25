@@ -6,7 +6,7 @@
 /*   By: enikole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/23 23:44:40 by enikole           #+#    #+#             */
-/*   Updated: 2019/08/23 23:52:55 by enikole          ###   ########.fr       */
+/*   Updated: 2019/08/25 17:16:28 by enikole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ int			ft_wordcount(char *str, char c)
 	words = 0;
 	while (*str)
 	{
-		while (*str == c)
+		while (*str && *str == c)
 			str++;
 		if (!(*str))
 			break ;
 		words++;
-		while (*str != c)
+		while (*str && *str != c)
 			str++;
 	}
 	return (words);

@@ -6,7 +6,7 @@
 /*   By: enikole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/03 15:21:52 by enikole           #+#    #+#             */
-/*   Updated: 2019/08/24 00:51:07 by enikole          ###   ########.fr       */
+/*   Updated: 2019/08/25 17:34:37 by enikole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,33 @@
 
 char				rec_str(int *ac, char ***av, t_stack *a)
 {
+	char			**tmp;
 	int				i;
-	char			fl;
+	int				fl;
 	long	int		curr;
 
-	fl = 0;
-	if (ac == 2)
+	fl = 1;
+	if (*ac == 2)
 	{
-		*ac = ft_wordcount(**av, ' ') + 1;
-		*av = ft_strsplit(av[1], ' ');
-		fl = 1;
+		//write(1, "HEAR\n", 5);
+		*ac = ft_wordcount((*av)[1], ' ') + 1;
+		//write(1, "yes\n", 4);
+		*av = ft_strsplit((*av)[1], ' ');
+		//write(1, "yes2\n", 5);
+		fl = 0;
 	}
 	a->size = *ac - 1;
 	a->data = (int *)malloc(sizeof(int) * a->size);
 	i = 0;
+	while (++i < *ac)
+	{
+			write(1, &(i), 1);
+			//printf("%s", (*av)[i++]);
+	}
+	i = 0;
 	while (--(*ac))
 	{
-		if (check_int(av[i + 1]) && ((curr = ft_atoi_long(av[i + 1])) <=
+		if (check_int((*av)[i + fl]) && ((curr = ft_atoi_long((*av)[i + fl])) <=
 						MAX_INT && curr >= MIN_INT))
 				(a->data)[i++] = curr;
 			else
@@ -70,7 +80,7 @@ char				rev_rotate(t_stack *stack, char *s)
 			(stack->data)[i + 1] = (stack->data)[i];
 		(stack->data)[0] = tmp;
 		if (s)
-			wirte(1, s, 4);
+			write(1, s, 4);
 	}
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: enikole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/05 12:51:55 by enikole           #+#    #+#             */
-/*   Updated: 2019/08/21 12:00:49 by enikole          ###   ########.fr       */
+/*   Updated: 2019/08/25 18:08:51 by enikole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ static	char		is_sort(t_stack stack)
 	int				i;
 
 	i = 0;
-	while (i < (stack.la - 1))
+	while (i < (stack.size - 1))
 	{
-		if (stack.a[i] < stack.a[i + 1])
+		if (stack.data[i] < stack.data[i + 1])
 			i++;
 		else
 			return (1);
@@ -63,13 +63,6 @@ static	char		is_sort(t_stack stack)
 	}
 } */
 
-static	int			*intcpy(int *dst, int *src, int len)
-{
-	while (len--)
-		dst[len] = src[len];
-	return (dst);
-}
-
 static	int			bubble_sort(int *stack, int len) //rewrite this to quickselect
 {
 	int				i;
@@ -78,7 +71,9 @@ static	int			bubble_sort(int *stack, int len) //rewrite this to quickselect
 	int				*mas;
 
 	mas = (int *)malloc(sizeof(int) * len);
-	mas = intcpy(mas, stack, len);
+	i = 0;
+	while (i < len)
+		mas[i] = stack[i++];
 	i = 0;
 	while (i < len)
 	{
@@ -419,13 +414,14 @@ static	void		three_sort_stack(int	*stack, int len)
 
 int					main(int ac, char **av)
 {
-	t_stack			stack;
+	t_stack			a;
+	t_stack			b;
 	int				i;
-	long	int		curr;
+	int				fl;
 
 	if (ac > 1)
 	{
-		stack.la = ac - 1;
+		/* stack.la = ac - 1;
 		stack.a = (int *)malloc(sizeof(int) * stack.la);
 		i = 0;
 		while (--ac)
@@ -435,8 +431,9 @@ int					main(int ac, char **av)
 				(stack.a)[i++] = curr;
 			else
 				break ;
-		}
-		if (ac || check_dupl(stack.a, stack.la))
+		} */
+		fl = (rec_str(&ac, &av, &a));
+		if (ac || check_dupl(a))
 			write(2, "Error\n", 6);
 		else
 		{
@@ -445,9 +442,9 @@ int					main(int ac, char **av)
 			//while (i < stack.la)
 				//printf(" %d", stack.a[i++]);
 			//printf("\nEND_OF_STACK\n");
-			stack.b = NULL;
-			stack.lb = 0;
-			if (is_sort(stack))
+			b.data = NULL;
+			b.size = 0;
+			if (is_sort(a))
 			{
 				if (stack.la == 3)
 					three_sort_stack(&stack, stack.la);
