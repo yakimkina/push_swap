@@ -6,7 +6,7 @@
 /*   By: enikole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 19:51:51 by enikole           #+#    #+#             */
-/*   Updated: 2019/08/25 17:55:40 by enikole          ###   ########.fr       */
+/*   Updated: 2019/09/04 13:15:24 by enikole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,7 @@ int					main(int ac, char **av)
 			//printf("\nEND_OF_STACK\n");
 			reading(&a);
 		}
-		free(a.data); //specify!!
+		free(a.data);
 		if (!fl)
 		{
 			i = 0;

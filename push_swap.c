@@ -6,7 +6,7 @@
 /*   By: enikole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/05 12:51:55 by enikole           #+#    #+#             */
-/*   Updated: 2019/08/25 18:08:51 by enikole          ###   ########.fr       */
+/*   Updated: 2019/09/05 11:22:37 by enikole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ static	int			bubble_sort(int *stack, int len) //rewrite this to quickselect
 		i++;
 	}
 	tmp = mas[(len / 2)];
+	free(mas);
 	return (tmp);
 }
 
@@ -166,7 +167,7 @@ static	int			bubble_sort(int *stack, int len) //rewrite this to quickselect
 	}
 } */
 
-static	void		three_sort_stack_b(t_stack *stack)
+/* static	void		three_sort_stack_b(t_stack *stack)
 {
 	int				fl;
 
@@ -235,9 +236,9 @@ static	void		three_sort_stack_b(t_stack *stack)
 			write(1, "ra\n", 3);
 		}
 	}
-}
+} */
 
-static	void		quicksort_stack_b(t_stack *stack)
+/* static	void		quicksort_stack_b(t_stack *stack)
 {
 	int				i;
 	int				fl;
@@ -298,9 +299,9 @@ static	void		quicksort_stack_b(t_stack *stack)
 		}
 		quicksort_stack_a(stack);
 	}
-}
+} */
 
-static	void		three_sort_stack_a(int	*stack, int len)
+/* static	void		three_sort_stack_a(int	*stack, int len)
 {
 	if (stack[0] < stack[1])
 	{
@@ -336,14 +337,14 @@ static	void		three_sort_stack_a(int	*stack, int len)
 	write(1, "ra\n", 3);
 	rotate(&stack, len);
 	write(1, "ra\n", 3);
-}
+} */
 
-static	void		quicksort_stack_a(t_stack *stack, int len)
+/* static	void		quicksort_stack_a(t_stack *a, t_stack *b)
 {
 	int				i;
 	int				med;
 
-	if (stack->la > 3)
+	if (a->size > 3)
 	{
 		med = bubble_sort(stack->a, stack->la);
 		i = ((stack->la / 2) % 2 == 0) ? (stack->la / 2) : (stack->la / 2 + 1);
@@ -376,38 +377,48 @@ static	void		quicksort_stack_a(t_stack *stack, int len)
 		if (stack->lb)
 			quicksort_stack_b(stack);
 	}
+} */
+
+void		first_split(t_stack *a, t_stack *b)
+{
+	int		i;
+	int		med;
+
+	med = bubble_sort(a->data, a->size);
+	i = ((a->size / 2) % 2 == 0) ? (a->size / 2) : (a->size / 2 + 1);
+	while (a->size != i)
+	{
+		if ((a->data)[0] < med)
+			push(b, a, "pb\n");
+		else
+			rotate(a, "ra\n");
+	}
 }
 
-static	void		three_sort_stack(int	*stack, int len)
+static	void		quicksort(t_stack *a, t_stack *b)
 {
-	if (stack[0] < stack[1] && stack[1] > stack[2])
+	first_split(a, b);
+	
+}
+
+static	void		three_sort_stack(t_stack *a)
+{
+	if ((a->data)[0] < (a->data)[1] && (a->data)[1] > (a->data)[2])
 	{
-		rev_rotate(&stack, len);
-		write(1, "rra\n", 4);
-		if (stack[1] < stack[0])
-		{
-			swap(stack, len);
-			write(1, "sa\n", 3);
-		}
+		rev_rotate(a, "rra\n");
+		if ((a->data)[1] < (a->data)[0])
+			swap(a, "sa\n");
 	}
-	else if (stack[0] > stack[1])
+	else if ((a->data)[0] > (a->data)[1])
 	{
-		if (stack[0] < stack[2])
-		{
-			swap(stack, len);
-			write(1, "sa\n", 3);
-		}
-		else if (stack[1] < stack[2])
-		{
-			rotate(&stack, len);
-			write(1, "ra\n", 3);
-		}
+		if ((a->data)[0] < (a->data)[2])
+			swap(a, "sa\n");
+		else if ((a->data)[1] < (a->data)[2])
+			rotate(a, "ra\n");
 		else
 		{
-			swap(stack, len);
-			write(1, "sa\n", 3);
-			rev_rotate(&stack, len);
-			write(1, "rra\n", 4);
+			swap(a, "sa\n");
+			rev_rotate(a, "rra\n");
 		}
 	}
 }
@@ -446,18 +457,15 @@ int					main(int ac, char **av)
 			b.size = 0;
 			if (is_sort(a))
 			{
-				if (stack.la == 3)
-					three_sort_stack(&stack, stack.la);
-				else if (stack.la == 2)
-				{
-					swap(stack.a, stack.la);
-					write(1, "sa\n", 3);
-				}
+				if (a.size == 3)
+					three_sort_stack(&a);
+				else if (a.size == 2)
+					swap(&a, "sa\n");
 				else
-					quicksort_stack_a(&stack);
+					quicksort(&a, &b);
 			}
 		}
-		free(stack.a); //specify!!
+		free(a.data);
 	}
 	return (0);
 }
