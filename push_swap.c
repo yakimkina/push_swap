@@ -6,7 +6,7 @@
 /*   By: enikole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/05 12:51:55 by enikole           #+#    #+#             */
-/*   Updated: 2019/09/05 11:22:37 by enikole          ###   ########.fr       */
+/*   Updated: 2019/09/06 11:54:01 by enikole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -379,6 +379,106 @@ static	int			bubble_sort(int *stack, int len) //rewrite this to quickselect
 	}
 } */
 
+int			stack_max(t_stack stack)
+{
+	int		i;
+	int		max;
+
+	i = 1;
+	max = stack.data[0];
+	while (i < stack.size)
+	{
+		if (stack.data[i] > max)
+			max = stack.data[i];
+		i++;
+	}
+	return (max);
+}
+
+int			stack_min(t_stack stack)
+{
+	int		i;
+	int		min;
+
+	i = 1;
+	min = stack.data[0];
+	while (i < stack.size)
+	{
+		if (stack.data[i] < min)
+			min = stack.data[i];
+		i++;
+	}
+	return (min);
+}
+
+void		split_b(t_stack *a, t_stack *b)
+{
+	int		med;
+	int		max;
+
+	max = stack_max(*b);
+	med = bubble_sort(b->data, b->size);
+	while (b->size)
+	{
+		if (b->data[0] >= med)
+			push(a, b, "pa\n");
+		else
+		{
+			if (b->data[0] == stack_min(*b))
+			{
+				push(a, b, "pa\n");
+				rotate(a, "ra\n");
+			}
+			else
+				rotate(b, "rb\n");
+		}
+	}
+	split_a(a, b, max);
+}
+
+int			count_num(t_stack a, int max)
+{
+	int		i;
+
+	i = 0;
+	while (a.data[i] > max)
+		i++;
+	return (i);
+}
+
+void		split_a(t_stack *a, t_stack *b, int max)
+{
+	int		med;
+	int		num;
+	int		i;
+
+	if (a->data[0] <= max)
+	{
+		while ((a->data)[0] <= max)
+			push(b, a, "pb\n");
+	}
+	else
+	{
+		num = count_num(*a, max);
+		med = bubble_sort(a->data, num);
+		i = 0;
+		while (num--)
+		{
+			if ((a->data)[0] < med)
+				push(b, a, "pb\n");
+			else
+			{
+				rotate(a, "ra\n");
+				i++;
+			}
+		}
+		while (i--)
+			rev_rotate(a, "rra\n");
+	}
+	if (is_sort(*a))
+		split_b(a, b);
+}
+
 void		first_split(t_stack *a, t_stack *b)
 {
 	int		i;
@@ -397,8 +497,11 @@ void		first_split(t_stack *a, t_stack *b)
 
 static	void		quicksort(t_stack *a, t_stack *b)
 {
+//	int				max;
+
 	first_split(a, b);
-	
+//	max = stack_max(*b);
+	split_b(a, b);
 }
 
 static	void		three_sort_stack(t_stack *a)
