@@ -6,7 +6,7 @@
 /*   By: enikole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/05 12:51:55 by enikole           #+#    #+#             */
-/*   Updated: 2019/09/06 11:54:01 by enikole          ###   ########.fr       */
+/*   Updated: 2019/09/06 14:27:54 by enikole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,10 @@ static	int			bubble_sort(int *stack, int len) //rewrite this to quickselect
 	mas = (int *)malloc(sizeof(int) * len);
 	i = 0;
 	while (i < len)
-		mas[i] = stack[i++];
+	{
+		mas[i] = stack[i];
+		i++;
+	}
 	i = 0;
 	while (i < len)
 	{
@@ -475,7 +478,7 @@ void		split_a(t_stack *a, t_stack *b, int max)
 		while (i--)
 			rev_rotate(a, "rra\n");
 	}
-	if (is_sort(*a))
+	if (is_sort(*a) || b->data)
 		split_b(a, b);
 }
 
@@ -508,20 +511,20 @@ static	void		three_sort_stack(t_stack *a)
 {
 	if ((a->data)[0] < (a->data)[1] && (a->data)[1] > (a->data)[2])
 	{
-		rev_rotate(a, "rra\n");
+		rev_rotate(a, 'a');
 		if ((a->data)[1] < (a->data)[0])
-			swap(a, "sa\n");
+			swap(a, 'a');
 	}
 	else if ((a->data)[0] > (a->data)[1])
 	{
 		if ((a->data)[0] < (a->data)[2])
-			swap(a, "sa\n");
+			swap(a, 'a');
 		else if ((a->data)[1] < (a->data)[2])
-			rotate(a, "ra\n");
+			rotate(a, 'a');
 		else
 		{
-			swap(a, "sa\n");
-			rev_rotate(a, "rra\n");
+			swap(a, 'a');
+			rev_rotate(a, 'a');
 		}
 	}
 }
@@ -566,6 +569,10 @@ int					main(int ac, char **av)
 					swap(&a, "sa\n");
 				else
 					quicksort(&a, &b);
+				//printf("sorted:\n");
+				//i = 0;
+				//while (i < a.size)
+					//printf("%d ", a.data[i++]);
 			}
 		}
 		free(a.data);

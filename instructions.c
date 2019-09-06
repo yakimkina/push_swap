@@ -6,7 +6,7 @@
 /*   By: enikole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/03 15:21:52 by enikole           #+#    #+#             */
-/*   Updated: 2019/08/25 17:34:37 by enikole          ###   ########.fr       */
+/*   Updated: 2019/09/06 14:29:36 by enikole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char				rec_str(int *ac, char ***av, t_stack *a)
 	return (fl);
 }
 
-char				rotate(t_stack *stack, char *s)
+char				rotate(t_stack *stack, char s)
 {
 	int				i;
 	int				tmp;
@@ -61,13 +61,20 @@ char				rotate(t_stack *stack, char *s)
 		while (++i < (stack->size - 1))
 			(stack->data)[i] = (stack->data)[i + 1];
 		(stack->data)[i] = tmp;
-		if (s)
-			write(1, s, 3);
+		if (s == 'a')
+			write(1, "ra\n", 3);
+		else if (s == 'b')
+			write(1, "rb\n", 3);
+		/*if (s)
+		{
+			write(1, s, 2);
+			write(1, "\n", 1);
+		} */
 	}
 	return (1);
 }
 
-char				rev_rotate(t_stack *stack, char *s)
+char				rev_rotate(t_stack *stack, char s)
 {
 	int				i;
 	int				tmp;
@@ -79,13 +86,20 @@ char				rev_rotate(t_stack *stack, char *s)
 		while (i--)
 			(stack->data)[i + 1] = (stack->data)[i];
 		(stack->data)[0] = tmp;
-		if (s)
-			write(1, s, 4);
+		if (s == 'a')
+			write(1, "rra\n", 4);
+		else if (s == 'b')
+			write(1, "rrb\n", 4);
+		/*if (s)
+		{
+			write(1, s, 3);
+			write(1, "\n", 1);
+		} */
 	}
 	return (1);
 }
 
-char				swap(t_stack *stack, char *s)
+char				swap(t_stack *stack, char s)
 {
 	int				tmp;
 
@@ -94,8 +108,16 @@ char				swap(t_stack *stack, char *s)
 		tmp = (stack->data)[0];
 		(stack->data)[0] = (stack->data)[1];
 		(stack->data)[1] = tmp;
-		if (s)
-			write(1, s, 3);
+		//printf("line = %s, line[2] = |%c|\n", s, (s[2] + 48));
+		if (s == 'a')
+			write(1, "sa\n", 3);
+		else if (s == 'b')
+			write(1, "sb\n", 3);
+		/* if (s)
+		{
+			write(1, s, 2);
+			write(1, "\n", 1);
+		} */
 	}
 	return (1);
 }
@@ -122,7 +144,10 @@ char				push(t_stack *dst, t_stack *src, char *s)
 		free((src->data));
 		src->data = tmp;
 		if (s)
-			write(1, s, 3);
+		{
+			write(1, s, 2);
+			write(1, "\n", 1);
+		}
 	}
 	return (1);
 }
