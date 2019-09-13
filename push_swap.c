@@ -6,7 +6,7 @@
 /*   By: enikole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/05 12:51:55 by enikole           #+#    #+#             */
-/*   Updated: 2019/09/06 14:27:54 by enikole          ###   ########.fr       */
+/*   Updated: 2019/09/13 14:53:30 by enikole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -414,16 +414,73 @@ int			stack_min(t_stack stack)
 	return (min);
 }
 
+int			smart_rotate(t_stack *a, t_stack *b, int i)
+{
+	if (i <= b->size / 2)
+	{
+		while (i--)
+		{
+			if ((b->data)[0] == stack_min(*b))
+			{
+				push(a, b, "pa\n");
+				rotate(a, "ra\n");
+			}
+			rotate(b, "rb\n");
+		}
+	}
+	else
+	{
+		while (i--)
+		{
+			if ((b->data)[0] == stack_min(*b))
+			{
+				push(a, b, "pa\n");
+				rotate(a, "ra\n");
+			}
+			rev_rotate(b, "rrb\n");
+		}
+	}
+	push(a, b, "pa\n");
+	return (1);
+}
+
+int			ten_split_b(t_stack *a, t_stack *b)
+{
+	int		i;
+	int		max;
+	int		res_max;
+
+	res_max = 0;
+	while (b->size)
+	{
+		if ((b->data)[0] == stack_min(*b))
+		{
+			push(a, b, "pa\n");
+			rotate(a, "ra\n");
+		}
+		else
+		{
+			i = 0;
+			max = stack_max(*b);
+			while ((b->data)[i] != max)
+				i++;
+			res_max += smart_rotate(a, b, i);
+		}
+	}
+	return (res_max);
+}
+
 void		split_b(t_stack *a, t_stack *b)
 {
 	int		med;
 	int		max;
+	int		k;
 
 	max = stack_max(*b);
 	med = bubble_sort(b->data, b->size);
-	while (b->size)
+	while (b->size > 10)
 	{
-		if (b->data[0] >= med)
+		if (b->data[0] > med)
 			push(a, b, "pa\n");
 		else
 		{
@@ -436,6 +493,11 @@ void		split_b(t_stack *a, t_stack *b)
 				rotate(b, "rb\n");
 		}
 	}
+	k = ten_split_b(a, b);
+	while (k--)
+		rotate(a, "ra\n");
+	printf("max = %d\n", max);
+	print_stack(*a, *b);
 	split_a(a, b, max);
 }
 
@@ -488,20 +550,25 @@ void		first_split(t_stack *a, t_stack *b)
 	int		med;
 
 	med = bubble_sort(a->data, a->size);
-	i = ((a->size / 2) % 2 == 0) ? (a->size / 2) : (a->size / 2 + 1);
+	i = (a->size % 2 == 0) ? (a->size / 2) : (a->size / 2 + 1);
+	//printf("BEGIN");
+	//print_stack(*a, *b);
 	while (a->size != i)
 	{
 		if ((a->data)[0] < med)
 			push(b, a, "pb\n");
 		else
 			rotate(a, "ra\n");
+		//print_stack(*a, *b);
 	}
+	//write(1, "hear\n", 5);
 }
 
 static	void		quicksort(t_stack *a, t_stack *b)
 {
 //	int				max;
 
+	//write(1, "hear2\n", 6);
 	first_split(a, b);
 //	max = stack_max(*b);
 	split_b(a, b);
@@ -511,20 +578,20 @@ static	void		three_sort_stack(t_stack *a)
 {
 	if ((a->data)[0] < (a->data)[1] && (a->data)[1] > (a->data)[2])
 	{
-		rev_rotate(a, 'a');
+		rev_rotate(a, "rra\n");
 		if ((a->data)[1] < (a->data)[0])
-			swap(a, 'a');
+			swap(a, "sa\n");
 	}
 	else if ((a->data)[0] > (a->data)[1])
 	{
 		if ((a->data)[0] < (a->data)[2])
-			swap(a, 'a');
+			swap(a, "sa\n");
 		else if ((a->data)[1] < (a->data)[2])
-			rotate(a, 'a');
+			rotate(a, "ra\n");
 		else
 		{
-			swap(a, 'a');
-			rev_rotate(a, 'a');
+			swap(a, "sa\n");
+			rev_rotate(a, "rra\n");
 		}
 	}
 }
@@ -554,6 +621,7 @@ int					main(int ac, char **av)
 			write(2, "Error\n", 6);
 		else
 		{
+			//write(1, "hear\n", 5);
 			//printf("stack :");
 			//i = 0;
 			//while (i < stack.la)
@@ -561,6 +629,7 @@ int					main(int ac, char **av)
 			//printf("\nEND_OF_STACK\n");
 			b.data = NULL;
 			b.size = 0;
+			//write(1, "hear\n", 5);
 			if (is_sort(a))
 			{
 				if (a.size == 3)

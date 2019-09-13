@@ -6,7 +6,7 @@
 /*   By: enikole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 19:24:56 by enikole           #+#    #+#             */
-/*   Updated: 2019/09/06 14:15:51 by enikole          ###   ########.fr       */
+/*   Updated: 2019/09/09 21:14:54 by enikole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ static	int			rec_line(t_str *elem, char **line)
 	if ((t = ft_strchr(elem->s, '\n')) != NULL)
 	{
 		*t = '\0';
-		//printf("elem->s1: %s, line[2] = |%c|\n", elem->s, elem->s[2] + 48);
 		if (!(*line = ft_strdup(elem->s)))
 			return (-1);
 		if (!(tmp = ft_strdup(t + 1)))
@@ -77,7 +76,6 @@ int					get_next_line(const int fd, char **line)
 	{
 		buf[ret] = '\0';
 		tmp = elem->s;
-		//printf("elem->s0: %s, line[0]: |%c|, line[1]: |%c|, line[2]: |%c|, line[3]: |%c|, line[4]: |%c|\n", buf, buf[0], buf[1], buf[2] + 48, buf[3], buf[4] + 48);
 		if (!(elem->s = ft_strjoin(elem->s, buf)))
 			return (-1);
 		free(tmp);

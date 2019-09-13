@@ -6,7 +6,7 @@
 /*   By: enikole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/03 15:21:52 by enikole           #+#    #+#             */
-/*   Updated: 2019/09/06 14:29:36 by enikole          ###   ########.fr       */
+/*   Updated: 2019/09/11 21:23:20 by enikole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ char				rec_str(int *ac, char ***av, t_stack *a)
 	long	int		curr;
 
 	fl = 1;
+	//write(1, "hear\n", 5);
 	if (*ac == 2)
 	{
 		//write(1, "HEAR\n", 5);
@@ -32,12 +33,12 @@ char				rec_str(int *ac, char ***av, t_stack *a)
 	a->size = *ac - 1;
 	a->data = (int *)malloc(sizeof(int) * a->size);
 	i = 0;
-	while (++i < *ac)
+	/* while (++i < *ac)
 	{
 			write(1, &(i), 1);
 			//printf("%s", (*av)[i++]);
 	}
-	i = 0;
+	i = 0; */
 	while (--(*ac))
 	{
 		if (check_int((*av)[i + fl]) && ((curr = ft_atoi_long((*av)[i + fl])) <=
@@ -46,10 +47,11 @@ char				rec_str(int *ac, char ***av, t_stack *a)
 			else
 				break ;
 	}
+	//write(1, "hear1\n", 6);
 	return (fl);
 }
 
-char				rotate(t_stack *stack, char s)
+char				rotate(t_stack *stack, char *s)
 {
 	int				i;
 	int				tmp;
@@ -61,20 +63,13 @@ char				rotate(t_stack *stack, char s)
 		while (++i < (stack->size - 1))
 			(stack->data)[i] = (stack->data)[i + 1];
 		(stack->data)[i] = tmp;
-		if (s == 'a')
-			write(1, "ra\n", 3);
-		else if (s == 'b')
-			write(1, "rb\n", 3);
-		/*if (s)
-		{
-			write(1, s, 2);
-			write(1, "\n", 1);
-		} */
+		if (s)
+			write(1, s, 3);
 	}
 	return (1);
 }
 
-char				rev_rotate(t_stack *stack, char s)
+char				rev_rotate(t_stack *stack, char *s)
 {
 	int				i;
 	int				tmp;
@@ -86,20 +81,13 @@ char				rev_rotate(t_stack *stack, char s)
 		while (i--)
 			(stack->data)[i + 1] = (stack->data)[i];
 		(stack->data)[0] = tmp;
-		if (s == 'a')
-			write(1, "rra\n", 4);
-		else if (s == 'b')
-			write(1, "rrb\n", 4);
-		/*if (s)
-		{
-			write(1, s, 3);
-			write(1, "\n", 1);
-		} */
+		if (s)
+			write(1, s, 4);
 	}
 	return (1);
 }
 
-char				swap(t_stack *stack, char s)
+char				swap(t_stack *stack, char *s)
 {
 	int				tmp;
 
@@ -109,15 +97,8 @@ char				swap(t_stack *stack, char s)
 		(stack->data)[0] = (stack->data)[1];
 		(stack->data)[1] = tmp;
 		//printf("line = %s, line[2] = |%c|\n", s, (s[2] + 48));
-		if (s == 'a')
-			write(1, "sa\n", 3);
-		else if (s == 'b')
-			write(1, "sb\n", 3);
-		/* if (s)
-		{
-			write(1, s, 2);
-			write(1, "\n", 1);
-		} */
+		if (s)
+			write(1, s, 3);
 	}
 	return (1);
 }
@@ -144,10 +125,7 @@ char				push(t_stack *dst, t_stack *src, char *s)
 		free((src->data));
 		src->data = tmp;
 		if (s)
-		{
-			write(1, s, 2);
-			write(1, "\n", 1);
-		}
+			write(1, s, 3);
 	}
 	return (1);
 }

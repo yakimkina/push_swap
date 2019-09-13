@@ -6,7 +6,7 @@
 /*   By: enikole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 19:51:51 by enikole           #+#    #+#             */
-/*   Updated: 2019/09/06 13:49:43 by enikole          ###   ########.fr       */
+/*   Updated: 2019/09/09 21:22:38 by enikole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,7 @@ static	char		r_instructions(char *line, t_stack *a, t_stack *b)
 	else if (line[1] == 'r')
 	{
 		if (line[2] == 'a' && line[3] == 0)
-		{
-			printf("hear3");
 			return (rev_rotate(a, NULL));
-		}
 		else if (line[2] == 'b' && line[3] == 0)
 			return (rev_rotate(b, NULL));
 		else if (line[2] == 'r' && line[3] == 0)
@@ -64,14 +61,10 @@ static	char		r_instructions(char *line, t_stack *a, t_stack *b)
 
 static	char		instructions(char *line, t_stack *a, t_stack *b)
 {
-	printf("line1: |%s|, line[2] = |%c|\n", line, line[2] + 48);
 	if (line[0] == 's')
 	{
 		if (line[1] == 'a' && line[2] == 0)
-		{
-			printf("hear4");
 			return (swap(a, NULL));
-		}
 		else if (line[1] == 'b' && line[2] == 0)
 			return (swap(b, NULL));
 		else if (line[1] == 's' && line[2] == 0)
@@ -82,10 +75,7 @@ static	char		instructions(char *line, t_stack *a, t_stack *b)
 		if (line[1] == 'a' && line[2] == 0)
 			return (push(a, b, NULL));
 		else if (line[1] == 'b' && line[2] == 0)
-		{
-			//printf("a.size = %d\n", a->size);
 			return (push(b, a, NULL));
-		}
 	}
 	else if (line[0] == 'r')
 		return (r_instructions(line, a, b));
@@ -111,7 +101,6 @@ static	void		reading(t_stack *a)
 	b.size = 0;
 	while (((curr = get_next_line(0, &line)) > 0) && fl)
 	{
-		printf("line: %s, line[2] = |%c|\n", line, line[2] + 48);
 		fl = instructions(line, a, &b);
 		line = ft_strnew(3);
 	}
