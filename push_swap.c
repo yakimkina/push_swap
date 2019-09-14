@@ -6,7 +6,7 @@
 /*   By: enikole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/05 12:51:55 by enikole           #+#    #+#             */
-/*   Updated: 2019/09/13 14:53:30 by enikole          ###   ########.fr       */
+/*   Updated: 2019/09/13 19:07:30 by enikole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -416,6 +416,8 @@ int			stack_min(t_stack stack)
 
 int			smart_rotate(t_stack *a, t_stack *b, int i)
 {
+    int     j;
+
 	if (i <= b->size / 2)
 	{
 		while (i--)
@@ -430,7 +432,8 @@ int			smart_rotate(t_stack *a, t_stack *b, int i)
 	}
 	else
 	{
-		while (i--)
+		j = b->size - i;
+	    while (j--)
 		{
 			if ((b->data)[0] == stack_min(*b))
 			{
@@ -496,8 +499,8 @@ void		split_b(t_stack *a, t_stack *b)
 	k = ten_split_b(a, b);
 	while (k--)
 		rotate(a, "ra\n");
-	printf("max = %d\n", max);
-	print_stack(*a, *b);
+	//printf("max = %d\n", max);
+	//print_stack(*a, *b);
 	split_a(a, b, max);
 }
 
@@ -521,25 +524,25 @@ void		split_a(t_stack *a, t_stack *b, int max)
 	{
 		while ((a->data)[0] <= max)
 			push(b, a, "pb\n");
-	}
-	else
-	{
-		num = count_num(*a, max);
-		med = bubble_sort(a->data, num);
-		i = 0;
-		while (num--)
-		{
-			if ((a->data)[0] < med)
-				push(b, a, "pb\n");
-			else
-			{
-				rotate(a, "ra\n");
-				i++;
-			}
-		}
-		while (i--)
-			rev_rotate(a, "rra\n");
-	}
+	} else
+	    {
+            num = count_num(*a, max);
+            med = bubble_sort(a->data, num);
+            i = 0;
+            while (num--) {
+                if ((a->data)[0] < med)
+                    push(b, a, "pb\n");
+                else {
+                    rotate(a, "ra\n");
+                    i++;
+                }
+            }
+            if (is_sort(*a) || b->data)
+            {
+                while (i--)
+                    rev_rotate(a, "rra\n");
+            }
+	    }
 	if (is_sort(*a) || b->data)
 		split_b(a, b);
 }
@@ -561,6 +564,7 @@ void		first_split(t_stack *a, t_stack *b)
 			rotate(a, "ra\n");
 		//print_stack(*a, *b);
 	}
+	 //print_stack(*a, *b);
 	//write(1, "hear\n", 5);
 }
 
@@ -646,5 +650,6 @@ int					main(int ac, char **av)
 		}
 		free(a.data);
 	}
+
 	return (0);
 }
