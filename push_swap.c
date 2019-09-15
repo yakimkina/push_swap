@@ -418,29 +418,33 @@ int			smart_rotate(t_stack *a, t_stack *b, int i)
 {
     int     j;
 
-	if (i <= b->size / 2)
+    if (i <= b->size / 2)
 	{
-		while (i--)
+		while (i > 0)
 		{
 			if ((b->data)[0] == stack_min(*b))
 			{
 				push(a, b, "pa\n");
 				rotate(a, "ra\n");
+                i--;
 			}
-			rotate(b, "rb\n");
+			if (i)
+                rotate(b, "rb\n");
+			i--;
 		}
 	}
 	else
 	{
 		j = b->size - i;
-	    while (j--)
+	    while (j > 0)
 		{
 			if ((b->data)[0] == stack_min(*b))
 			{
-				push(a, b, "pa\n");
-				rotate(a, "ra\n");
-			}
+                push(a, b, "pa\n");
+                rotate(a, "ra\n");
+            }
 			rev_rotate(b, "rrb\n");
+			j--;
 		}
 	}
 	push(a, b, "pa\n");
@@ -478,23 +482,29 @@ void		split_b(t_stack *a, t_stack *b)
 	int		med;
 	int		max;
 	int		k;
+	int     i;
 
 	max = stack_max(*b);
 	med = bubble_sort(b->data, b->size);
-	while (b->size > 10)
-	{
-		if (b->data[0] > med)
-			push(a, b, "pa\n");
-		else
-		{
-			if (b->data[0] == stack_min(*b))
-			{
-				push(a, b, "pa\n");
-				rotate(a, "ra\n");
-			}
-			else
-				rotate(b, "rb\n");
-		}
+    i = (b->size % 2 == 0) ? (b->size / 2) : (b->size / 2 + 1);
+    if (b->size > 10)
+    {
+        while (b->size != i && b->size)
+        {
+            if (b->data[0] > med)
+                push(a, b, "pa\n");
+            else
+            {
+                if (b->data[0] == stack_min(*b))
+                {
+                    push(a, b, "pa\n");
+                    rotate(a, "ra\n");
+                    i--;
+                }
+                else
+                    rotate(b, "rb\n");
+            }
+        }
 	}
 	k = ten_split_b(a, b);
 	while (k--)
@@ -524,25 +534,28 @@ void		split_a(t_stack *a, t_stack *b, int max)
 	{
 		while ((a->data)[0] <= max)
 			push(b, a, "pb\n");
-	} else
+	}
+	else
+    {
+	    num = count_num(*a, max);
+	    med = bubble_sort(a->data, num);
+	    i = 0;
+	    while (num--)
 	    {
-            num = count_num(*a, max);
-            med = bubble_sort(a->data, num);
-            i = 0;
-            while (num--) {
-                if ((a->data)[0] < med)
-                    push(b, a, "pb\n");
-                else {
-                    rotate(a, "ra\n");
-                    i++;
-                }
-            }
-            if (is_sort(*a) || b->data)
+	        if ((a->data)[0] < med)
+	            push(b, a, "pb\n");
+	        else
             {
-                while (i--)
-                    rev_rotate(a, "rra\n");
+	            rotate(a, "ra\n");
+	            i++;
             }
 	    }
+	    if (is_sort(*a) || b->data)
+	    {
+	        while (i--)
+	            rev_rotate(a, "rra\n");
+	    }
+    }
 	if (is_sort(*a) || b->data)
 		split_b(a, b);
 }
