@@ -484,11 +484,11 @@ void		split_b(t_stack *a, t_stack *b)
 	int		k;
 	int     i;
 
-	max = stack_max(*b);
-	med = bubble_sort(b->data, b->size);
-    i = (b->size % 2 == 0) ? (b->size / 2) : (b->size / 2 + 1);
-    if (b->size > 10)
+    while (b->size > 10)
     {
+        max = stack_max(*b);
+        med = bubble_sort(b->data, b->size);
+        i = (b->size % 2 == 0) ? (b->size / 2) : (b->size / 2 + 1);
         while (b->size != i && b->size)
         {
             if (b->data[0] > med)
@@ -523,6 +523,23 @@ int			count_num(t_stack a, int max)
 		i++;
 	return (i);
 }
+
+/* char        check_med(t_stack *a, int num, int med)
+{
+    int     i;
+
+    i = 0;
+    while (i < num)
+    {
+        if (a->data[i] >= med)
+            i++;
+        else
+            break ;
+    }
+    if (i == num)
+        return (0);
+    return (1);
+} */
 
 void		split_a(t_stack *a, t_stack *b, int max)
 {
@@ -613,6 +630,35 @@ static	void		three_sort_stack(t_stack *a)
 	}
 }
 
+void                five_sort_stack(t_stack *a, t_stack *b)
+{
+    int             med;
+    int             i;
+
+    if (a->size == 2)
+        swap(a, "sa\n");
+    else if (a->size == 3)
+        three_sort_stack(a);
+    else
+    {
+        med = bubble_sort(a->data, a->size);
+        i = (a->size % 2 == 0) ? (a->size / 2) : (a->size / 2 + 1);
+        while (a->size != i)
+        {
+            if (a->data[0] < med)
+                push(b, a, "pb\n");
+            else
+                rotate(a, "ra\n");
+        }
+        three_sort_stack(a);
+        if (b->size == 2 && b->data[0] < b->data[1])
+            swap(b, "sb\n");
+        while (b->size)
+            push(a, b, "pa\n");
+    }
+
+}
+
 int					main(int ac, char **av)
 {
 	t_stack			a;
@@ -649,10 +695,8 @@ int					main(int ac, char **av)
 			//write(1, "hear\n", 5);
 			if (is_sort(a))
 			{
-				if (a.size == 3)
-					three_sort_stack(&a);
-				else if (a.size == 2)
-					swap(&a, "sa\n");
+				if (a.size < 6)
+					five_sort_stack(&a, &b);
 				else
 					quicksort(&a, &b);
 				//printf("sorted:\n");
