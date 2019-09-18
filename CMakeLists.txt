@@ -1,12 +1,12 @@
 cmake_minimum_required(VERSION 3.14)
-project(git_push_swap C)
+project(push_swap C)
 
 set(CMAKE_C_STANDARD 11)
 
 include_directories(.)
 include_directories(libft/includes)
 
-add_executable(git_push_swap
+add_executable(push_swap
         libft/includes/ft_printf.h
         libft/includes/get_next_line.h
         libft/includes/libft.h

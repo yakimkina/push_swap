@@ -25,6 +25,12 @@ typedef struct		s_stack
 	int				size;
 }					t_stack;
 
+typedef struct      s_max
+{
+    int             max;
+    struct s_max    *next;
+}                   t_max;
+
 char				rec_str(int *ac, char ***av, t_stack *a);
 char				check_int(char *str);
 char				check_dupl(t_stack a);
@@ -32,7 +38,7 @@ char				swap(t_stack *stack, char *s);
 char				push(t_stack *dst, t_stack *src, char *s);
 char				rotate(t_stack *stack, char *s);
 char				rev_rotate(t_stack *stack, char *s);
-void				split_a(t_stack *a, t_stack *b, int max);
+void				split_a(t_stack *a, t_stack *b, int max, t_max **begin);
 
 void				print_stack(t_stack a, t_stack b);
 
