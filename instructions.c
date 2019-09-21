@@ -65,6 +65,7 @@ char				rotate(t_stack *stack, char *s)
 		(stack->data)[i] = tmp;
 		if (s)
 			write(1, s, 3);
+		    //ft_printf("%s", s);
 	}
 	return (1);
 }

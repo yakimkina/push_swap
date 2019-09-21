@@ -11,14 +11,14 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
+#include "libft/includes/ft_printf.h"
 void		print_stack(t_stack a, t_stack b)
 {
 	int		i;
 	char    *tmp;
 
     i = 0;
-    write(1, "stack b:\n", 9);
+/*    write(1, "stack b:\n", 9);
     while (i < b.size)
     {
         tmp = ft_itoa(b.data[i]);
@@ -34,18 +34,18 @@ void		print_stack(t_stack a, t_stack b)
 	    write(1, tmp, ft_strlen(tmp));
 	    write(1, "\n", 1);
 	    i++;
-    }
+    } */
 
-	/* printf("\n");
+	ft_printf("\n");
 	while (i < a.size)
 	{
-		printf("a[%i] = %d", i, a.data[i]);
+		ft_printf("a[%i] = %d", i, a.data[i]);
 		if (i < b.size)
-			printf("        b[%i] = %d\n", i, b.data[i]);
+			ft_printf("        b[%i] = %d\n", i, b.data[i]);
 		else
-			printf("\n");
+			ft_printf("\n");
 		i++;
-	} */
+	}
 	//printf("STACK B\n");
 	/*i = 0;
 	while (i < b.size)

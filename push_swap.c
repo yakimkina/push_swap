@@ -658,7 +658,7 @@ void		split_a(t_stack *a, t_stack *b, int max, t_max **begin)
 	            if ((a->data)[0] < med)
                 {
 	                push(b, a, "pb\n");
-                //print_stack(*a, *b);
+                    //print_stack(*a, *b);
                 }
 	            else if (check_rot(a, b, num + 1, med))
 	                    i += rotate(a, "ra\n");
