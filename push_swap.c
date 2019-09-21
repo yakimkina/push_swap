@@ -600,7 +600,11 @@ char            check_rot(t_stack *a, t_stack *b, int num, int med)
         tmp->data = &(a->data[i]);
         tmp->size = a->size - num;
         if (is_sort(*tmp) || b->data)
+        {
+            free(tmp);
             return (0);
+        }
+        free(tmp);
     }
     return (1);
 }
@@ -657,11 +661,7 @@ void		split_a(t_stack *a, t_stack *b, int max, t_max **begin)
                 //print_stack(*a, *b);
                 }
 	            else if (check_rot(a, b, num + 1, med))
-                {
-	                rotate(a, "ra\n");
-                //print_stack(*a, *b);
-	                i++;
-                }
+	                    i += rotate(a, "ra\n");
 	            else
                     break ;
 	        }
