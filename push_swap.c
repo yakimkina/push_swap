@@ -477,7 +477,7 @@ int			ten_split_b(t_stack *a, t_stack *b)
 	return (res_max);
 }
 
-t_max       **add_max(t_max **begin, int max)
+void        add_max(t_max **begin, int max)
 {
     t_max   *tmp;
 
@@ -491,7 +491,6 @@ t_max       **add_max(t_max **begin, int max)
             tmp->next = *begin;
         *begin = tmp;
     }
-    return (begin);
 }
 
 void		split_b(t_stack *a, t_stack *b, t_max **begin)
@@ -508,12 +507,12 @@ void		split_b(t_stack *a, t_stack *b, t_max **begin)
 	    if (b->size <= 10)
         {
 	        max = stack_max(*b);
-	        begin = add_max(begin, max);
+	        add_max(begin, max);
         }
         while (b->size > 10)
         {
             max = stack_max(*b);
-            begin = add_max(begin, max);
+            add_max(begin, max);
             med = bubble_sort(b->data, b->size);
         //tmp = ft_itoa(med);
         //write(1, "\nmed = ", 7);
@@ -582,12 +581,13 @@ int			count_num(t_stack a, int max, int border)
 	return (i);
 }
 
-/* char        check_med(t_stack *a, int num, int med)
+char            check_rot(t_stack *a, t_stack *b, int num, int med)
 {
-    int     i;
+    t_stack     *tmp;
+    int         i;
 
     i = 0;
-    while (i < num)
+    while (i != num)
     {
         if (a->data[i] >= med)
             i++;
@@ -595,11 +595,17 @@ int			count_num(t_stack a, int max, int border)
             break ;
     }
     if (i == num)
-        return (0);
+    {
+        tmp = (t_stack *)malloc(sizeof(t_stack) * 1);
+        tmp->data = &(a->data[i]);
+        tmp->size = a->size - num;
+        if (is_sort(*tmp) || b->data)
+            return (0);
+    }
     return (1);
-} */
+}
 
-t_max       **del_max(t_max **begin)
+void        del_max(t_max **begin)
 {
     t_max   *tmp;
 
@@ -610,7 +616,6 @@ t_max       **del_max(t_max **begin)
         tmp->next = NULL;
         free(tmp);
     }
-    return (begin);
 }
 
 void		split_a(t_stack *a, t_stack *b, int max, t_max **begin)
@@ -631,7 +636,7 @@ void		split_a(t_stack *a, t_stack *b, int max, t_max **begin)
 	}
 	else
     {
-	    begin = del_max(begin);
+	    del_max(begin);
 	    border = ((*begin)) ? ((*begin)->max) : (stack_max(*a));
 	    num = count_num(*a, max, border);
         //tmp = ft_itoa(num);
@@ -644,28 +649,30 @@ void		split_a(t_stack *a, t_stack *b, int max, t_max **begin)
         //write(1, tmp, ft_strlen(tmp));
         //write(1, "\n", 1);
 	    i = 0;
-	    while (num--)
-	    {
-	        if ((a->data)[0] < med)
-            {
-	            push(b, a, "pb\n");
+	        while (num--)
+	        {
+	            if ((a->data)[0] < med)
+                {
+	                push(b, a, "pb\n");
                 //print_stack(*a, *b);
-            }
-	        else
-            {
-	            rotate(a, "ra\n");
+                }
+	            else if (check_rot(a, b, num + 1, med))
+                {
+	                rotate(a, "ra\n");
                 //print_stack(*a, *b);
-	            i++;
-            }
-	    }
-	    if (is_sort(*a) || b->data)
-	    {
-	        while (i--)
-            {
-	            rev_rotate(a, "rra\n");
+	                i++;
+                }
+	            else
+                    break ;
+	        }
+	        if (is_sort(*a) || b->data)
+	        {
+	            while (i--)
+                {
+	                rev_rotate(a, "rra\n");
                 //print_stack(*a, *b);
-            }
-	    }
+                }
+	        }
     }
 	//if (is_sort(*a) || b->data)
 	//	split_b(a, b);
@@ -679,7 +686,7 @@ void		first_split(t_stack *a, t_stack *b)
 	med = bubble_sort(a->data, a->size);
 	i = (a->size % 2 == 0) ? (a->size / 2) : (a->size / 2 + 1);
 	//printf("BEGIN");
-	//print_stack(*a, *b);
+	//print_stack(*a, *b);`
 	while (a->size != i)
 	{
 		if ((a->data)[0] < med)
@@ -709,7 +716,7 @@ static	void		quicksort(t_stack *a, t_stack *b)
     while (is_sort(*a) || b->data)
     {
 	    split_b(a, b, &begin);
-	    split_a(a, b, ((begin)) ? (begin->max) : (stack_max(*a)), &begin);
+	    split_a(a, b, begin->max, &begin);
     }
 }
 
