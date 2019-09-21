@@ -818,6 +818,12 @@ int					main(int ac, char **av)
 			}
 		}
 		free(a.data);
+        if (!fl)
+        {
+            i = 0;
+            while (av[i])
+                free(av[i++]);
+        }
 	}
 
 	return (0);
