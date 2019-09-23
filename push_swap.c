@@ -509,7 +509,7 @@ void		split_b(t_stack *a, t_stack *b, t_max **begin)
 	        max = stack_max(*b);
 	        add_max(begin, max);
         }
-        while (b->size > 10)
+        while (b->size > 12)
         {
             max = stack_max(*b);
             add_max(begin, max);
@@ -526,7 +526,7 @@ void		split_b(t_stack *a, t_stack *b, t_max **begin)
                 if (b->data[0] >= med)
                 {
                     push(a, b, "pa\n");
-                //print_stack(*a, *b);
+                    //print_stack(*a, *b);
                 }
                 else
                 {
@@ -534,13 +534,13 @@ void		split_b(t_stack *a, t_stack *b, t_max **begin)
                     {
                         push(a, b, "pa\n");
                         rotate(a, "ra\n");
-                    //print_stack(*a, *b);
+                        //print_stack(*a, *b);
                         i--;
                     }
                     else
                     {
                         rotate(b, "rb\n");
-                    //print_stack(*a, *b);
+                        //print_stack(*a, *b);
                     }
                 }
             }
@@ -555,10 +555,12 @@ void		split_b(t_stack *a, t_stack *b, t_max **begin)
         } */
 	    }
 	    k = ten_split_b(a, b);
-	    while (k--)                                    //check speed
-		    rotate(a, "ra\n");
+	    while (k--)
+        {
+	        rotate(a, "ra\n");
+            //print_stack(*a, *b);
+        }
 	//printf("max = %d\n", max);
-	//print_stack(*a, *b);
 	//split_a(a, b, max);
     }
 }
@@ -670,7 +672,7 @@ void		split_a(t_stack *a, t_stack *b, int max, t_max **begin)
 	            while (i--)
                 {
 	                rev_rotate(a, "rra\n");
-                //print_stack(*a, *b);
+                    //print_stack(*a, *b);
                 }
 	        }
     }

@@ -36,14 +36,14 @@ void		print_stack(t_stack a, t_stack b)
 	    i++;
     } */
 
-	ft_printf("\n");
+	printf("\n");
 	while (i < a.size)
 	{
-		ft_printf("a[%i] = %d", i, a.data[i]);
+		printf("a[%i] = %d", i, a.data[i]);
 		if (i < b.size)
-			ft_printf("        b[%i] = %d\n", i, b.data[i]);
+			printf("        b[%i] = %d\n", i, b.data[i]);
 		else
-			ft_printf("\n");
+			printf("\n");
 		i++;
 	}
 	//printf("STACK B\n");
