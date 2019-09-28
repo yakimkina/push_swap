@@ -218,6 +218,8 @@ static	int			bubble_sort(int *stack, int len) //rewrite this to quickselect
 
 void                    three_sort_stack_a(t_stack *a, t_stack *b)
 {
+    char                 fl;
+
     if (a->data[0] < a->data[1] && a->data[0] < a->data[2])
     {
         rotate(a, "ra\n");
@@ -235,13 +237,14 @@ void                    three_sort_stack_a(t_stack *a, t_stack *b)
     }
     else
     {
+        fl = 0;
         push(b, a, "pb\n");
         swap(a, "sa\n");
         rotate(a, "ra\n");
         if (a->data[0] > b->data[0])
-            push(a, b, "pa\n");
+            fl = push(a, b, "pa\n");
         rotate(a, "ra\n");
-        if (b->data)
+        if (!fl)
             push(a, b, "pa\n");
     }
     rotate(a, "ra\n");
@@ -767,6 +770,9 @@ void        five_sort_stack_a(t_stack *a, t_stack *b, int num, int med)
             else
                 i += rotate(a, "ra\n");
         }
+        //while (i--)
+        //   rev_rotate(a, "ra\n");
+        //three_sort_stack_a(a, b);
         (i) ? three_rot_a(a, b, i) : (three_sort_stack_a(a, b));
         push(a, b, "pa\n");
         rotate(a, "ra\n");
