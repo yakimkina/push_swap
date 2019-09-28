@@ -1,4 +1,5 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/push_swap.dir/instructions.c.o"
   "CMakeFiles/push_swap.dir/libft/f_beauty.c.o"
   "CMakeFiles/push_swap.dir/libft/f_fraction.c.o"
   "CMakeFiles/push_swap.dir/libft/f_integer.c.o"
@@ -84,12 +85,11 @@ file(REMOVE_RECURSE
   "CMakeFiles/push_swap.dir/libft/mod.c.o"
   "CMakeFiles/push_swap.dir/libft/trash.c.o"
   "CMakeFiles/push_swap.dir/libft/x_trash.c.o"
-  "CMakeFiles/push_swap.dir/instructions.c.o"
   "CMakeFiles/push_swap.dir/print.c.o"
   "CMakeFiles/push_swap.dir/push_swap.c.o"
   "CMakeFiles/push_swap.dir/valid_arg.c.o"
-  "push_swap.pdb"
   "push_swap"
+  "push_swap.pdb"
 )
 
 # Per-language clean rules from dependency scanning.

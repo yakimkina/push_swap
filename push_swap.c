@@ -216,6 +216,37 @@ static	int			bubble_sort(int *stack, int len) //rewrite this to quickselect
 	}
 } */
 
+void                    three_sort_stack_a(t_stack *a, t_stack *b)
+{
+    if (a->data[0] < a->data[1] && a->data[0] < a->data[2])
+    {
+        rotate(a, "ra\n");
+        if (a->data[0] > a->data[1])
+            swap(a, "sa\n");
+        rotate(a, "ra\n");
+    }
+    else if (a->data[0] > a->data[1] && a->data[1] < a->data[2])
+    {
+        swap(a, "sa\n");
+        rotate(a, "ra\n");
+        if (a->data[0] > a->data[1])
+            swap(a, "sa\n");
+        rotate(a, "ra\n");
+    }
+    else
+    {
+        push(b, a, "pb\n");
+        swap(a, "sa\n");
+        rotate(a, "ra\n");
+        if (a->data[0] > b->data[0])
+            push(a, b, "pa\n");
+        rotate(a, "ra\n");
+        if (b->data)
+            push(a, b, "pa\n");
+    }
+    rotate(a, "ra\n");
+}
+
 /* static	void		quicksort_stack_b(t_stack *stack)
 {
 	int				i;
@@ -402,13 +433,20 @@ int			smart_rotate(t_stack *a, t_stack *b, int i)
 			if ((b->data)[0] == stack_min(*b))
 			{
 				push(a, b, "pa\n");
-				rotate(a, "ra\n");
+				i--;
+				if (i && b->data[0] != stack_min(*b))
+                {
+				    rotate(a, NULL);
+				    rotate(b, "rr\n");
+				    i--;
+                }
+				else
+				    rotate(a, "ra\n");
                 //print_stack(*a, *b);
-                i--;
 			}
 			if (i)
             {
-                rotate(b, "rb\n");
+			    rotate(b, "rb\n");
                 //print_stack(*a, *b);
             }
 			i--;
@@ -435,7 +473,7 @@ int			smart_rotate(t_stack *a, t_stack *b, int i)
 	return (1);
 }
 
-int			ten_split_b(t_stack *a, t_stack *b)
+int			twelve_split(t_stack *a, t_stack *b)
 {
 	int		i;
 	int		max;
@@ -447,6 +485,7 @@ int			ten_split_b(t_stack *a, t_stack *b)
 		if ((b->data)[0] == stack_min(*b))
 		{
 			push(a, b, "pa\n");
+			//if (b->size && b->data[0] != stack_min(*b) && )
 			rotate(a, "ra\n");
             //print_stack(*a, *b);
 		}
@@ -461,9 +500,10 @@ int			ten_split_b(t_stack *a, t_stack *b)
 	}
 	/*if (b->size == 3)
 	    three_sort_stack_b(a, b);
-	else if (b->size == 2 && (b->data[0] > b->data[1]))
+ 	else if (b->size == 2)
     {
-	    swap(b, "sb\n");
+	    if (b->data[0] > b->data[1])
+	        swap(b, "sb\n");
 	    push(a, b, "pa\n");
 	    rotate(a, "ra\n");
         push(a, b, "pa\n");
@@ -504,7 +544,7 @@ void		split_b(t_stack *a, t_stack *b, t_max **begin)
 
 	if (b->size)
     {
-	    if (b->size <= 10)
+	    if (b->size <= 12)
         {
 	        max = stack_max(*b);
 	        add_max(begin, max);
@@ -533,7 +573,14 @@ void		split_b(t_stack *a, t_stack *b, t_max **begin)
                     if (b->data[0] == stack_min(*b))
                     {
                         push(a, b, "pa\n");
-                        rotate(a, "ra\n");
+                        if (b->size != i && b->size && b->data[0] < med &&
+                                b->data[0] != stack_min(*b))
+                        {
+                            rotate(a, NULL);
+                            rotate(b, "rr\n");
+                        }
+                        else
+                            rotate(a, "ra\n");
                         //print_stack(*a, *b);
                         i--;
                     }
@@ -554,8 +601,8 @@ void		split_b(t_stack *a, t_stack *b, t_max **begin)
             begin = add_max(begin, max);
         } */
 	    }
-	    k = ten_split_b(a, b);
-	    while (k--)
+        k = twelve_split(a, b);
+        while (k--)
         {
 	        rotate(a, "ra\n");
             //print_stack(*a, *b);
@@ -624,6 +671,213 @@ void        del_max(t_max **begin)
     }
 }
 
+void        three_rot_a(t_stack *a, t_stack *b, int i)
+{
+    if (i == 3)
+    {
+        if (a->data[a->size - 3] < a->data[a->size - 2] &&
+            a->data[a->size - 3] < a->data[a->size - 1])
+        {
+            if (a->data[a->size - 2] > a->data[a->size - 1])
+            {
+                rev_rotate(a, "rra\n");
+                rev_rotate(a, "rra\n");
+                swap(a, "sa\n");
+                rotate(a, "ra\n");
+                rotate(a, "ra\n");
+            }
+        }
+        else
+        {
+            while (i--)
+                rev_rotate(a, "rra\n");
+            three_sort_stack_a(a, b);
+        }
+    }
+    else if (i == 2)
+    {
+        if (a->data[0] > a->data[a->size - 2] && a->data[a->size - 2] < a->data[a->size - 1])
+        {
+            if (a->data[0] < a->data[a->size - 1])
+            {
+                rev_rotate(a, "rra\n");
+                swap(a, "sa\n");
+                rotate(a, "ra\n");
+            }
+            rotate(a, "ra\n");
+        }
+        else
+        {
+            rev_rotate(a, "rra\n");
+            if (a->data[1] < a->data[0])
+                swap(a, "sa\n");
+            rev_rotate(a, "rra\n");
+            three_sort_stack_a(a, b);
+        }
+    }
+    else
+    {
+        if (a->data[a->size - 1] < a->data[0] && a->data[1] > a->data[a->size - 1])
+        {
+            if (a->data[0] > a->data[1])
+                swap(a, "sa\n");
+            rotate(a, "ra\n");
+            rotate(a, "ra\n");
+        }
+        else
+        {
+            if (a->data[0] > a->data[1])
+                swap(a, "sa\n");
+            rev_rotate(a, "rra\n");
+            three_sort_stack_a(a, b);
+        }
+    }
+}
+
+void        five_sort_stack_a(t_stack *a, t_stack *b, int num, int med)
+{
+    int     i;
+    /*int     fl;
+
+    fl = 0;
+    if (num > 3)
+    {
+        i = 0;
+        while (num--)
+        {
+            if (a->data[0] > med)
+                push(b, a, "pb\n");
+            else
+                i += rotate(a, "ra\n");
+        }
+
+        while (i--)
+            rev_rotate(a, "rra\n");
+
+        fl = 1;
+
+    } */
+    if (num == 4)
+    {
+        i = 0;
+        while (!b->size)
+        {
+            if (a->data[0] > med)
+                push(b, a, "pb\n");
+            else
+                i += rotate(a, "ra\n");
+        }
+        (i) ? three_rot_a(a, b, i) : (three_sort_stack_a(a, b));
+        push(a, b, "pa\n");
+        rotate(a, "ra\n");
+    }
+    else if (num == 3)
+        three_sort_stack_a(a, b);
+    else if (num == 2)
+    {
+        if (a->data[0] > a->data[1])
+            swap(a, "sa\n");
+        rotate(a, "ra\n");
+        rotate(a, "ra\n");
+    }
+    else if (num == 1)
+        rotate(a, "ra\n");
+    /* if (fl)
+    {
+        if (b->size == 1)
+        {
+            push(a, b, "pa\n");
+            rotate(a, "ra\n");
+        }
+        else
+        {
+            if (b->data[0] < b->data[1])
+                swap(b, "sb\n");
+            push(a, b, "pa\n");
+            push(a, b, "pa\n");
+            rotate(a, "ra\n");
+            rotate(a, "ra\n");
+        }
+    } */
+}
+
+void		three_sort_stack(t_stack *a)
+{
+    if ((a->data)[0] < (a->data)[1] && (a->data)[1] > (a->data)[2])
+    {
+        rev_rotate(a, "rra\n");
+        if ((a->data)[1] < (a->data)[0])
+            swap(a, "sa\n");
+    }
+    else if ((a->data)[0] > (a->data)[1])
+    {
+        if ((a->data)[0] < (a->data)[2])
+            swap(a, "sa\n");
+        else if ((a->data)[1] < (a->data)[2])
+            rotate(a, "ra\n");
+        else
+        {
+            swap(a, "sa\n");
+            rev_rotate(a, "rra\n");
+        }
+    }
+}
+
+void                five_sort_stack(t_stack *a, t_stack *b)
+{
+    int             med;
+    int             i;
+
+    if (a->size == 2 && a->data[0] > a->data[1])
+        swap(a, "sa\n");
+    else if (a->size == 3)
+        three_sort_stack(a);
+    else if (a->size > 3)
+    {
+        med = bubble_sort(a->data, a->size);
+        i = (a->size % 2 == 0) ? (a->size / 2) : (a->size / 2 + 1);
+        while (a->size != i)
+        {
+            if (a->data[0] < med)
+                push(b, a, "pb\n");
+            else
+                rotate(a, "ra\n");
+        }
+        three_sort_stack(a);
+        if (b->size == 2 && b->data[0] < b->data[1])
+            swap(b, "sb\n");
+        while (b->size)
+            push(a, b, "pa\n");
+    }
+}
+
+/* void        twelve_split_a(t_stack *a, t_stack *b)
+{
+
+    int		i;
+    int		max;
+    int		res_max;
+
+    res_max = 0;
+    while (b->size)
+    {
+        if ((b->data)[0] == stack_min(*b))
+        {
+            push(a, b, "pa\n");
+            rotate(a, "ra\n");
+            //print_stack(*a, *b);
+        }
+        else
+        {
+            i = 0;
+            max = stack_max(*b);
+            while ((b->data)[i] != max)
+                i++;
+            res_max += smart_rotate(a, b, i);
+        }
+    }
+}
+ */
 void		split_a(t_stack *a, t_stack *b, int max, t_max **begin)
 {
     //char    *tmp;
@@ -635,10 +889,13 @@ void		split_a(t_stack *a, t_stack *b, int max, t_max **begin)
 	if (a->data[0] <= max)
 	{
 		while ((a->data)[0] <= max)
-        {
-			push(b, a, "pb\n");
-            //print_stack(*a, *b);
-        }
+		{
+		    if (a->data[1] > max && a->data[0] < stack_min(*b))
+		        rotate(a, "ra\n");
+		    else
+		        push(b, a, "pb\n");
+		    //print_stack(*a, *b);
+		}
 	}
 	else
     {
@@ -655,6 +912,12 @@ void		split_a(t_stack *a, t_stack *b, int max, t_max **begin)
         //write(1, tmp, ft_strlen(tmp));
         //write(1, "\n", 1);
 	    i = 0;
+	    if (num < 6 && a->size < 6)
+	        five_sort_stack(a, b);
+	    else if (num < 5)
+	        five_sort_stack_a(a, b, num, med);
+        else
+        {
 	        while (num--)
 	        {
 	            if ((a->data)[0] < med)
@@ -675,6 +938,7 @@ void		split_a(t_stack *a, t_stack *b, int max, t_max **begin)
                     //print_stack(*a, *b);
                 }
 	        }
+        }
     }
 	//if (is_sort(*a) || b->data)
 	//	split_b(a, b);
@@ -722,7 +986,7 @@ static	void		quicksort(t_stack *a, t_stack *b)
     }
 }
 
-static	void		three_sort_stack(t_stack *a)
+/* static	void		three_sort_stack(t_stack *a)
 {
 	if ((a->data)[0] < (a->data)[1] && (a->data)[1] > (a->data)[2])
 	{
@@ -770,9 +1034,8 @@ void                five_sort_stack(t_stack *a, t_stack *b)
         while (b->size)
             push(a, b, "pa\n");
     }
-
 }
-
+*/
 int					main(int ac, char **av)
 {
 	t_stack			a;
