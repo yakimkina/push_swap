@@ -17,7 +17,10 @@
 # include <sys/types.h>
 # include <sys/uio.h>
 # include <unistd.h>
+# include "mlx/mlx.h"
 #include "stdio.h" //DELETE THIS
+# define HEIGHT 1000
+# define WIDTH 2000
 
 typedef struct		s_stack
 {
@@ -31,16 +34,38 @@ typedef struct      s_max
     struct s_max    *next;
 }                   t_max;
 
-char				rec_str(int *ac, char ***av, t_stack *a);
+typedef struct      s_image
+{
+	void			*id;
+	int 			*data;
+	int 			size_line;
+	int 			bpp;
+	int 			endian;
+}                   t_image;
+
+typedef struct      s_mlx
+{
+    void            *id;
+    void            *win;
+    t_image         *img;
+    t_stack			*a;
+    t_stack			*b;
+    int				w0;
+    int 			h0;
+}                   t_mlx;
+
+char				reading_args(int *ac, char ***av, t_stack *a);
+void				check(t_stack a, t_stack b);
 char				check_int(char *str);
 char				check_dupl(t_stack a);
+char				instructions(char *line, t_stack *a, t_stack *b);
 char				swap(t_stack *stack, char *s);
 char				push(t_stack *dst, t_stack *src, char *s);
 char				rotate(t_stack *stack, char *s);
 char				rev_rotate(t_stack *stack, char *s);
 void				split_a(t_stack *a, t_stack *b, int max, t_max **begin);
 
-void				print_stack(t_stack a, t_stack b);
-
+int                 visualisation(int *ac, char ***av, t_stack *a);
+void				draw(t_mlx mlx);
 
 #endif

@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-static	void		check(t_stack a, t_stack b)
+void				check(t_stack a, t_stack b)
 {
 	int				i;
 	char			fl;
@@ -59,7 +59,7 @@ static	char		r_instructions(char *line, t_stack *a, t_stack *b)
 	return (0);
 }
 
-static	char		instructions(char *line, t_stack *a, t_stack *b)
+char		instructions(char *line, t_stack *a, t_stack *b)
 {
 	if (line[0] == 's')
 	{
@@ -82,7 +82,7 @@ static	char		instructions(char *line, t_stack *a, t_stack *b)
 	return (0);
 }
 
-static	void		reading(t_stack *a)
+static	void		reading_str(t_stack *a)
 {
 	t_stack			b;
 	char			fl;
@@ -123,10 +123,12 @@ int					main(int ac, char **av)
 	int				i;
 	int				fl;
 
-	if (ac > 1)
+    if ((ac == 3 && !ft_strncmp(av[1], "-v", 3)) || (ac == 2 && !ft_strncmp(av[1], "-v ", 3)))
+        fl = visualisation(&ac, &av, &a);
+	else if (ac > 1)
 	{
 		//printf("ac = %d, av[0] = %s\n", ac, av[0]);
-		fl = (rec_str(&ac, &av, &a));
+		fl = reading_args(&ac, &av, &a);
 		//printf("ac = %d, a.size = %d\n", ac, a.size);
 		//i = 0;
 		//while (i < a.size)
@@ -152,15 +154,15 @@ int					main(int ac, char **av)
 			//printf(" %d", stack[i++]);
 			//printf("\nEND_OF_STACK\n");
 			//printf("hear");
-			reading(&a);
+			reading_str(&a);
 		}
-		free(a.data);
-		if (!fl)
-		{
-			i = 0;
-			while (av[i])
-				free(av[i++]);
-		}
+    }
+	free(a.data);
+	if (!fl)
+	{
+		i = 0;
+		while (av[i])
+			free(av[i++]);
 	}
 	return (0);
 }

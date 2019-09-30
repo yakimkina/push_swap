@@ -1062,7 +1062,7 @@ int					main(int ac, char **av)
 			else
 				break ;
 		} */
-		fl = (rec_str(&ac, &av, &a));
+		fl = reading_args(&ac, &av, &a);
 		if (ac || check_dupl(a))
 			write(2, "Error\n", 6);
 		else
@@ -1096,6 +1096,5 @@ int					main(int ac, char **av)
                 free(av[i++]);
         }
 	}
-
 	return (0);
 }

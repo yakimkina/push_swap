@@ -12,9 +12,8 @@
 
 #include "push_swap.h"
 
-char				rec_str(int *ac, char ***av, t_stack *a)
+char				reading_args(int *ac, char ***av, t_stack *a)
 {
-	char			**tmp;
 	int				i;
 	int				fl;
 	long	int		curr;
