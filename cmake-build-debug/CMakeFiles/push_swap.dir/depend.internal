@@ -6,6 +6,7 @@ CMakeFiles/push_swap.dir/instructions.c.o
  /Users/enikole/git_push_swap/libft/includes/ft_printf.h
  /Users/enikole/git_push_swap/libft/includes/get_next_line.h
  /Users/enikole/git_push_swap/libft/includes/libft.h
+ /Users/enikole/git_push_swap/mlx/mlx.h
  /Users/enikole/git_push_swap/push_swap.h
 CMakeFiles/push_swap.dir/libft/f_beauty.c.o
  /Users/enikole/git_push_swap/libft/f_beauty.c
@@ -355,17 +356,20 @@ CMakeFiles/push_swap.dir/print.c.o
  /Users/enikole/git_push_swap/libft/includes/ft_printf.h
  /Users/enikole/git_push_swap/libft/includes/get_next_line.h
  /Users/enikole/git_push_swap/libft/includes/libft.h
+ /Users/enikole/git_push_swap/mlx/mlx.h
  /Users/enikole/git_push_swap/print.c
  /Users/enikole/git_push_swap/push_swap.h
 CMakeFiles/push_swap.dir/push_swap.c.o
  /Users/enikole/git_push_swap/libft/includes/ft_printf.h
  /Users/enikole/git_push_swap/libft/includes/get_next_line.h
  /Users/enikole/git_push_swap/libft/includes/libft.h
+ /Users/enikole/git_push_swap/mlx/mlx.h
  /Users/enikole/git_push_swap/push_swap.c
  /Users/enikole/git_push_swap/push_swap.h
 CMakeFiles/push_swap.dir/valid_arg.c.o
  /Users/enikole/git_push_swap/libft/includes/ft_printf.h
  /Users/enikole/git_push_swap/libft/includes/get_next_line.h
  /Users/enikole/git_push_swap/libft/includes/libft.h
+ /Users/enikole/git_push_swap/mlx/mlx.h
  /Users/enikole/git_push_swap/push_swap.h
  /Users/enikole/git_push_swap/valid_arg.c

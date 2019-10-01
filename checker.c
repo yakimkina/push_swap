@@ -39,7 +39,7 @@ void				check(t_stack a, t_stack b)
 		write(1, "KO\n", 3);
 }
 
-static	char		r_instructions(char *line, t_stack *a, t_stack *b)
+char		r_instructions(char *line, t_stack *a, t_stack *b)
 {
 	if (line[1] == 'a' && line[2] == 0)
 		return (rotate(a, NULL));
@@ -59,7 +59,7 @@ static	char		r_instructions(char *line, t_stack *a, t_stack *b)
 	return (0);
 }
 
-char		instructions(char *line, t_stack *a, t_stack *b)
+char		instruction(char *line, t_stack *a, t_stack *b)
 {
 	if (line[0] == 's')
 	{
@@ -101,7 +101,7 @@ static	void		reading_str(t_stack *a)
 	b.size = 0;
 	while (((curr = get_next_line(0, &line)) > 0) && fl)
 	{
-		fl = instructions(line, a, &b);
+		fl = instruction(line, a, &b);
 		line = ft_strnew(3);
 	}
 	free(line);
@@ -123,9 +123,10 @@ int					main(int ac, char **av)
 	int				i;
 	int				fl;
 
-    if ((ac == 3 && !ft_strncmp(av[1], "-v", 3)) || (ac == 2 && !ft_strncmp(av[1], "-v ", 3)))
+    //if ((ac > 2 && !ft_strncmp(av[1], "-v", 3)) || (ac == 2 && !ft_strncmp(av[1], "-v ", 3)))
+    if (ac > 1)
         fl = visualisation(&ac, &av, &a);
-	else if (ac > 1)
+	else
 	{
 		//printf("ac = %d, av[0] = %s\n", ac, av[0]);
 		fl = reading_args(&ac, &av, &a);
@@ -157,12 +158,12 @@ int					main(int ac, char **av)
 			reading_str(&a);
 		}
     }
-	free(a.data);
+	/*free(a.data);
 	if (!fl)
 	{
 		i = 0;
 		while (av[i])
 			free(av[i++]);
-	}
+	} */
 	return (0);
 }

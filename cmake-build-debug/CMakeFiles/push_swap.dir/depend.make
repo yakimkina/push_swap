@@ -5,6 +5,7 @@ CMakeFiles/push_swap.dir/instructions.c.o: ../instructions.c
 CMakeFiles/push_swap.dir/instructions.c.o: ../libft/includes/ft_printf.h
 CMakeFiles/push_swap.dir/instructions.c.o: ../libft/includes/get_next_line.h
 CMakeFiles/push_swap.dir/instructions.c.o: ../libft/includes/libft.h
+CMakeFiles/push_swap.dir/instructions.c.o: ../mlx/mlx.h
 CMakeFiles/push_swap.dir/instructions.c.o: ../push_swap.h
 
 CMakeFiles/push_swap.dir/libft/f_beauty.c.o: ../libft/f_beauty.c
@@ -354,18 +355,21 @@ CMakeFiles/push_swap.dir/libft/x_trash.c.o: ../libft/x_trash.c
 CMakeFiles/push_swap.dir/print.c.o: ../libft/includes/ft_printf.h
 CMakeFiles/push_swap.dir/print.c.o: ../libft/includes/get_next_line.h
 CMakeFiles/push_swap.dir/print.c.o: ../libft/includes/libft.h
+CMakeFiles/push_swap.dir/print.c.o: ../mlx/mlx.h
 CMakeFiles/push_swap.dir/print.c.o: ../print.c
 CMakeFiles/push_swap.dir/print.c.o: ../push_swap.h
 
 CMakeFiles/push_swap.dir/push_swap.c.o: ../libft/includes/ft_printf.h
 CMakeFiles/push_swap.dir/push_swap.c.o: ../libft/includes/get_next_line.h
 CMakeFiles/push_swap.dir/push_swap.c.o: ../libft/includes/libft.h
+CMakeFiles/push_swap.dir/push_swap.c.o: ../mlx/mlx.h
 CMakeFiles/push_swap.dir/push_swap.c.o: ../push_swap.c
 CMakeFiles/push_swap.dir/push_swap.c.o: ../push_swap.h
 
 CMakeFiles/push_swap.dir/valid_arg.c.o: ../libft/includes/ft_printf.h
 CMakeFiles/push_swap.dir/valid_arg.c.o: ../libft/includes/get_next_line.h
 CMakeFiles/push_swap.dir/valid_arg.c.o: ../libft/includes/libft.h
+CMakeFiles/push_swap.dir/valid_arg.c.o: ../mlx/mlx.h
 CMakeFiles/push_swap.dir/valid_arg.c.o: ../push_swap.h
 CMakeFiles/push_swap.dir/valid_arg.c.o: ../valid_arg.c
 

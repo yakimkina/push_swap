@@ -6,6 +6,10 @@
 
 #IncludeRegexTransform: 
 
+/Users/enikole/git_push_swap/instructions.c
+push_swap.h
+/Users/enikole/git_push_swap/push_swap.h
+
 /Users/enikole/git_push_swap/libft/includes/ft_printf.h
 libft.h
 /Users/enikole/git_push_swap/libft/includes/libft.h
@@ -30,6 +34,14 @@ get_next_line.h
 ft_printf.h
 /Users/enikole/git_push_swap/libft/includes/ft_printf.h
 
+/Users/enikole/git_push_swap/mlx/mlx.h
+
+/Users/enikole/git_push_swap/print.c
+push_swap.h
+/Users/enikole/git_push_swap/push_swap.h
+libft/includes/ft_printf.h
+/Users/enikole/git_push_swap/libft/includes/ft_printf.h
+
 /Users/enikole/git_push_swap/push_swap.c
 push_swap.h
 /Users/enikole/git_push_swap/push_swap.h
@@ -45,6 +57,12 @@ sys/uio.h
 -
 unistd.h
 -
+mlx/mlx.h
+/Users/enikole/git_push_swap/mlx/mlx.h
 stdio.h
 /Users/enikole/git_push_swap/stdio.h
+
+/Users/enikole/git_push_swap/valid_arg.c
+push_swap.h
+/Users/enikole/git_push_swap/push_swap.h
 
