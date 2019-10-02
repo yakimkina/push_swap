@@ -20,7 +20,7 @@
 # include "mlx/mlx.h"
 # include "stdio.h" //DELETE THIS
 # define HEIGHT 1000
-# define WIDTH 2000
+# define WIDTH 1400
 
 typedef struct		s_stack
 {
