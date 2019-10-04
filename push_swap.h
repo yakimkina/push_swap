@@ -19,8 +19,8 @@
 # include <unistd.h>
 # include "mlx/mlx.h"
 # include "stdio.h" //DELETE THIS
-# define HEIGHT 1000
-# define WIDTH 1400
+# define HEIGHT 500
+# define WIDTH 1000
 
 typedef struct		s_stack
 {
@@ -45,13 +45,14 @@ typedef struct      s_image
 
 typedef struct      s_mlx
 {
+	float 			c0;
     void            *id;
     void            *win;
     t_image         *img;
     t_stack			*a;
     t_stack			*b;
-    int				w0;
-    int 			h0;
+	int				w0;
+	int 			h0;
 }                   t_mlx;
 
 char				reading_args(int *ac, char ***av, t_stack *a);

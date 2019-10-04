@@ -12,6 +12,35 @@
 
 #include "push_swap.h"
 
+int		set_colors(unsigned char o, unsigned char r, unsigned char g, unsigned char b)
+{
+    int i;
+    int tmp;
+    int res;
+    int j;
+
+    i = 0;
+    res = 0;
+    tmp = 0;
+    j = 0;
+    while (i < 32)
+    {
+        tmp = (i >= 0 && i <= 7) ? b : tmp;
+        tmp = (i >= 8 && i <= 15) ? g : tmp;
+        tmp = (i >= 16 && i <= 23) ? r : tmp;
+        tmp = (i >= 24 && i <= 31) ? o : tmp;
+        j = 0;
+        while (j < 8)
+        {
+            if (tmp & (1 << j))
+                res |= 1 << i;
+            ++i;
+            ++j;
+        }
+    }
+    return (res);
+}
+
 void		draw_a(t_mlx *mlx, int step)
 {
 	int 	x;
@@ -24,7 +53,7 @@ void		draw_a(t_mlx *mlx, int step)
 		x = 0;
 		while (x < mlx->w0 * mlx->a->data[mlx->a->size - step - 1])
 		{
-			mlx->img->data[x + y * (mlx->img->size_line / 4)] = 255;
+			mlx->img->data[x + y * (mlx->img->size_line / 4)] = set_colors(0, 100, 255 - mlx->c0 * mlx->a->data[mlx->a->size - step - 1], 255);
 			x++;
 		}
 		y++;
@@ -38,13 +67,13 @@ void		draw_b(t_mlx *mlx, int step)
 	int 	y;
 
 	y = HEIGHT - (step + 1) * mlx->h0;
-	write(1, "1", 1);
+	//write(1, "1", 1);
 	while (y < HEIGHT - step * mlx->h0)
 	{
 		x = WIDTH / 2;
 		while (x < ((WIDTH / 2) + mlx->w0 * mlx->b->data[mlx->b->size - step - 1]))
 		{
-			mlx->img->data[x + y * mlx->img->size_line / 4] = 255;
+			mlx->img->data[x + y * mlx->img->size_line / 4] = set_colors(0, 100, 255 - mlx->c0 * mlx->b->data[mlx->b->size - step - 1], 255);
 			x++;
 		}
 		y++;

@@ -27,42 +27,6 @@ static	char		is_sort(t_stack stack)
 	return (0);
 }
 
-/* static	void		sort(t_stack *stack)
-{
-	if (stack->la)
-	{
-		if (!stack->b || ((stack->a)[0] > (stack->b)[0]))
-		{
-			push(&stack->b, &stack->a, &stack->lb, &stack->la);
-			write(1, "pb\n", 3);
-			sort(stack);
-		}
-		else if ((stack->a)[0] < (stack->b)[0])
-		{
-			rotate(&stack->a, stack->la);
-			write(1, "ra\n", 3);
-			push(&stack->a, &stack->b, &stack->la, &stack->lb);
-			write(1, "pa\n", 3);
-			while (stack->b && (stack->a)[stack->la - 1] < (stack->b)[0])
-			{
-				push(&stack->a, &stack->b, &stack->la, &stack->lb);
-				write(1, "pa\n", 3);
-			}
-			rev_rotate(&stack->a, stack->la);
-			write(1, "rra\n", 4);
-			sort(stack);
-		}
-	}
-	else
-	{
-		while (stack->lb)
-		{
-			push(&stack->a, &stack->b, &stack->la, &stack->lb);
-			write(1, "pa\n", 3);
-		}
-	}
-} */
-
 static	int			bubble_sort(int *stack, int len) //rewrite this to quickselect
 {
 	int				i;
@@ -98,124 +62,6 @@ static	int			bubble_sort(int *stack, int len) //rewrite this to quickselect
 	return (tmp);
 }
 
-/* static	void		sort(t_stack *stack)
-{
-	int				*mas;
-	int				i;
-	int				j;
-	int				del;
-
-	mas = bubble_sort(stack->a, stack->la);
-	//i = 0;
-	//printf("sort mas:\n");
-	//while (i < stack->la)
-	//	printf("%d ", mas[i++]);
-	//printf("\n");
-	i = 0;
-	while (stack->la)
-	{
-		j = 0;
-		while (mas[i] != stack->a[j])
-			j++;
-		//printf("j = %d, stack->la = %d\n", j, stack->la);
-		if ((del = (stack->la - j)) < j)
-		{
-			while (del--)
-			{
-				rev_rotate(&stack->a, stack->la);
-				write(1, "rra\n", 4);
-				//printf("del = %d\n", del);
-			}
-			push(&stack->b, &stack->a, &stack->lb, &stack->la);
-			write(1, "pb\n", 3);
-		}
-		else
-		{
-			while (j--)
-			{
-				rotate(&stack->a, stack->la);
-				write(1, "ra\n", 3);
-			}
-			push(&stack->b, &stack->a, &stack->lb, &stack->la);
-			write(1, "pb\n", 3);
-		}
-		i++;
-	}
-	while (stack->lb)
-	{
-		push(&stack->a, &stack->b, &stack->la, &stack->lb);
-		write(1, "pa\n", 3);
-	}
-	free(mas);
-} */
-
-/* static	int			quickselect(int *mas, int len, int k)
-{
-	t_stack			new;
-	int				pivot;
-	int				i;
-
-	pivot = mas[0];
-	i = 0;
-	new.la = 0;
-	new.lb = 0;
-	while (i < len)
-		(mas[i++] >= pivot) ? (new.lb++) : (new.la++);
-	new.a = (int *)malloc(sizeof(int) * new.la);
-	new.b = (int *)malloc(sizeof(int) * new.lb);
-	i = 0;
-	while (i < len)
-	{
-		if ()
-	}
-} */
-
-/* static	void		three_sort_stack_b(t_stack *a, t_stack *b)
-{
-	int				fl;
-
-	fl = 1;
-	push(a, b, "pa\n");
-	if ((a->data)[0] < (b->data)[0] && (a->data)[0] < (b->data)[1])
-	{
-		rotate(a, "ra\n");
-		push(a, b, "pa\n");
-		if ((a->data)[0] < (b->data)[0])
-		{
-			rotate(a, "ra\n");
-			fl = 0;
-		}
-		push(a, b, "pa\n");
-		rotate(a, "ra\n");
-		if (fl)
-			rotate(a, "ra\n");
-	}
-	else if ((b->data)[0] > (b->data)[1])
-	{
-		push(a, b, "pa\n");
-		push(a, b, "pa\n");
-		rotate(a, "ra\n");
-		if ((a->data)[0] > (a->data)[1])
-			swap(a, "sa\n");
-		rotate(a, "ra\n");
-		rotate(a, "ra\n");
-	}
-	else
-	{
-		push(a, b, "pa\n");
-		rotate(a, "ra\n");
-		if ((a->data)[0] < (b->data)[0])
-		{
-			rotate(a, "ra\n");
-			fl = 0;
-		}
-		push(a, b, "pa\n");
-		rotate(a, "ra\n");
-		if (fl)
-			rotate(a, "ra\n");
-	}
-} */
-
 void                    three_sort_stack_a(t_stack *a, t_stack *b)
 {
     char                 fl;
@@ -249,147 +95,6 @@ void                    three_sort_stack_a(t_stack *a, t_stack *b)
     }
     rotate(a, "ra\n");
 }
-
-/* static	void		quicksort_stack_b(t_stack *stack)
-{
-	int				i;
-	int				fl;
-	int				med;
-
-	if (stack->lb > 3)
-	{
-		med = bubble_sort(stack->b, stack->lb);
-		i = stack->lb / 2;
-		while (stack->lb != i)
-		{
-			if ((stack->b)[0] > med)
-			{
-				push(&stack->a, &stack->b, &stack->la, &stack->lb);
-				write(1, "pa\n", 3);
-			}
-			else
-			{
-				rotate(&stack->b, stack->lb);
-				write(1, "rb\n", 3);
-			}
-		}
-		//length of stack a
-		quicksort_stack_b(stack);
-		
-	}
-	else
-	{
-		fl = 1;
-		if (stack->lb == 3)
-			three_sort_stack_b(stack);
-		else if (stack->lb == 2)
-		{
-			push(&stack->a, &stack->b, &stack->la, &stack->lb);
-			write(1, "pa\n", 3);
-			if ((stack->a)[0] < (stack->b)[0])
-			{
-				rotate(&stack->a, stack->la);
-				write(1, "ra\n", 3);
-				fl = 0;
-			}
-			push(&stack->a, &stack->b, &stack->la, &stack->lb);
-			write(1, "pa\n", 3);
-			rotate(&stack->a, stack->la);
-			write(1, "ra\n", 3);
-			if (fl)
-			{
-				rotate(&stack->a, stack->la);
-				write(1, "ra\n", 3);
-			}
-		}
-		else if (stack->lb == 1)
-		{
-			push(&stack->a, &stack->b, &stack->la, &stack->lb);
-			write(1, "pa\n", 3);
-			rotate(&stack->a, stack->la);
-			write(1, "ra\n", 3);
-		}
-		quicksort_stack_a(stack);
-	}
-} */
-
-/* static	void		three_sort_stack_a(int	*stack, int len)
-{
-	if (stack[0] < stack[1])
-	{
-		rotate(&stack, len);
-		write(1, "ra\n", 3);
-		if (stack[0] > stack[1])
-		{
-			swap(stack, len);
-			write(1, "sa\n", 3);
-			if (stack[len - 1] > stack[0])
-			{
-				rev_rotate(&stack, len);
-				write(1, "rra\n", 4);
-				swap(stack, len);
-				write(1, "sa\n", 3);
-				rotate(&stack, len);
-				write(1, "ra\n", 3);
-			}
-		}
-	}
-	else
-	{
-		if (stack[1] < stack[2])
-		{
-			swap(stack, len);
-			write(1, "sa\n", 3);
-		}
-		rotate(&stack, len);
-		write(1, "ra\n", 3);
-		if ()
-	}
-	rotate(&stack, len);
-	write(1, "ra\n", 3);
-	rotate(&stack, len);
-	write(1, "ra\n", 3);
-} */
-
-/* static	void		quicksort_stack_a(t_stack *a, t_stack *b)
-{
-	int				i;
-	int				med;
-
-	if (a->size > 3)
-	{
-		med = bubble_sort(stack->a, stack->la);
-		i = ((stack->la / 2) % 2 == 0) ? (stack->la / 2) : (stack->la / 2 + 1);
-		while (stack->la != i)
-		{
-			if ((stack->a)[0] < med)
-			{
-				push(&stack->b, &stack->a, &stack->lb, &stack->la);
-				write(1, "pb\n", 3);
-			}
-			else
-			{
-				rotate(&stack->a, stack->la);
-				write(1, "ra\n", 3);
-			}
-		}
-		//do smth with stack->b(need to hyde the previous part)
-		//maybe change length
-		quicksort_stack_b(stack);
-	}
-	else
-	{
-		if (stack->la == 3)
-			three_sort_stack_a(stack->a, stack->la);
-		else if (stack->la == 2 && (stack->a)[0] > (stack->a)[1])
-		{
-			swap(stack->a, stack->la);
-			write(1, "sa\n", 3);
-		}
-		if (stack->lb)
-			quicksort_stack_b(stack);
-	}
-} */
 
 int			stack_max(t_stack stack)
 {
@@ -501,22 +206,6 @@ int			twelve_split(t_stack *a, t_stack *b)
 			res_max += smart_rotate(a, b, i);
 		}
 	}
-	/*if (b->size == 3)
-	    three_sort_stack_b(a, b);
- 	else if (b->size == 2)
-    {
-	    if (b->data[0] > b->data[1])
-	        swap(b, "sb\n");
-	    push(a, b, "pa\n");
-	    rotate(a, "ra\n");
-        push(a, b, "pa\n");
-        rotate(a, "ra\n");
-    }
-	else if (b->size == 1)
-    {
-        push(a, b, "pa\n");
-        rotate(a, "ra\n");
-    } */
 	return (res_max);
 }
 
@@ -538,8 +227,6 @@ void        add_max(t_max **begin, int max)
 
 void		split_b(t_stack *a, t_stack *b, t_max **begin)
 {
-    //int     tmp;
-    //char    *tmp;
     int		med;
 	int		max;
 	int		k;
@@ -557,20 +244,11 @@ void		split_b(t_stack *a, t_stack *b, t_max **begin)
             max = stack_max(*b);
             add_max(begin, max);
             med = bubble_sort(b->data, b->size);
-        //tmp = ft_itoa(med);
-        //write(1, "\nmed = ", 7);
-        //write(1, tmp, ft_strlen(tmp));
-        //write(1, "\n", 1);
             i = (b->size / 2);
-        //i = (b->size % 2 == 0) ? (b->size / 2) : (b->size / 2 + 1);
             while (b->size != i && b->size)
             {
-            //tmp = b->data[0];
                 if (b->data[0] >= med)
-                {
                     push(a, b, "pa\n");
-                    //print_stack(*a, *b);
-                }
                 else
                 {
                     if (b->data[0] == stack_min(*b))
@@ -584,34 +262,16 @@ void		split_b(t_stack *a, t_stack *b, t_max **begin)
                         }
                         else
                             rotate(a, "ra\n");
-                        //print_stack(*a, *b);
                         i--;
                     }
                     else
-                    {
                         rotate(b, "rb\n");
-                        //print_stack(*a, *b);
-                    }
                 }
             }
-        //write(1, "end of one circle\nb->size = ", 28);
-        //tmp = ft_itoa(b->size);
-        //write(1, tmp, ft_strlen(tmp));
-        //write(1, "\n", 1);
-        /* if (b->size > 10)
-        {
-            max = stack_max(*b);
-            begin = add_max(begin, max);
-        } */
 	    }
         k = twelve_split(a, b);
         while (k--)
-        {
 	        rotate(a, "ra\n");
-            //print_stack(*a, *b);
-        }
-	//printf("max = %d\n", max);
-	//split_a(a, b, max);
     }
 }
 
@@ -740,26 +400,7 @@ void        three_rot_a(t_stack *a, t_stack *b, int i)
 void        five_sort_stack_a(t_stack *a, t_stack *b, int num, int med)
 {
     int     i;
-    /*int     fl;
 
-    fl = 0;
-    if (num > 3)
-    {
-        i = 0;
-        while (num--)
-        {
-            if (a->data[0] > med)
-                push(b, a, "pb\n");
-            else
-                i += rotate(a, "ra\n");
-        }
-
-        while (i--)
-            rev_rotate(a, "rra\n");
-
-        fl = 1;
-
-    } */
     if (num == 4)
     {
         i = 0;
@@ -770,9 +411,6 @@ void        five_sort_stack_a(t_stack *a, t_stack *b, int num, int med)
             else
                 i += rotate(a, "ra\n");
         }
-        //while (i--)
-        //   rev_rotate(a, "ra\n");
-        //three_sort_stack_a(a, b);
         (i) ? three_rot_a(a, b, i) : (three_sort_stack_a(a, b));
         push(a, b, "pa\n");
         rotate(a, "ra\n");
@@ -788,23 +426,6 @@ void        five_sort_stack_a(t_stack *a, t_stack *b, int num, int med)
     }
     else if (num == 1)
         rotate(a, "ra\n");
-    /* if (fl)
-    {
-        if (b->size == 1)
-        {
-            push(a, b, "pa\n");
-            rotate(a, "ra\n");
-        }
-        else
-        {
-            if (b->data[0] < b->data[1])
-                swap(b, "sb\n");
-            push(a, b, "pa\n");
-            push(a, b, "pa\n");
-            rotate(a, "ra\n");
-            rotate(a, "ra\n");
-        }
-    } */
 }
 
 void		three_sort_stack(t_stack *a)
@@ -857,33 +478,6 @@ void                five_sort_stack(t_stack *a, t_stack *b)
     }
 }
 
-/* void        twelve_split_a(t_stack *a, t_stack *b)
-{
-
-    int		i;
-    int		max;
-    int		res_max;
-
-    res_max = 0;
-    while (b->size)
-    {
-        if ((b->data)[0] == stack_min(*b))
-        {
-            push(a, b, "pa\n");
-            rotate(a, "ra\n");
-            //print_stack(*a, *b);
-        }
-        else
-        {
-            i = 0;
-            max = stack_max(*b);
-            while ((b->data)[i] != max)
-                i++;
-            res_max += smart_rotate(a, b, i);
-        }
-    }
-}
- */
 void		split_a(t_stack *a, t_stack *b, int max, t_max **begin)
 {
     //char    *tmp;

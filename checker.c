@@ -19,8 +19,6 @@ void				check(t_stack a, t_stack b)
 
 	i = 0;
 	fl = 1;
-	//while(i < a.size)
-	//	printf("%d", a.data[i++]);
 	i = 0;
 	while (i < (a.size - 1))
 	{
@@ -89,12 +87,6 @@ static	void		reading_str(t_stack *a)
 	int				curr;
 	char			*line;
 
-//	line = ft_strnew(3);
-//	if (get_next_line(0, &line) > 0)
-//	{
-//		stack->b = NULL;
-//		stack->lb = 0;
-//		fl = instructions(line, stack);
 	fl = 1;
 	line = ft_strnew(3);
 	b.data = NULL;
@@ -105,15 +97,11 @@ static	void		reading_str(t_stack *a)
 		line = ft_strnew(3);
 	}
 	free(line);
-	//fl = fl + 48;
-	//printf("curr = %d, fl = %c\n", curr, fl);
 	if (!curr && fl)
 	{
-		//printf("hear1");
 		check(*a, b);
 		return ;
 	}
-//	}
 	write(2, "Error\n", 6);
 }
 
@@ -123,47 +111,22 @@ int					main(int ac, char **av)
 	int				i;
 	int				fl;
 
-    //if ((ac > 2 && !ft_strncmp(av[1], "-v", 3)) || (ac == 2 && !ft_strncmp(av[1], "-v ", 3)))
-    if (ac > 1)
+    if ((ac > 2 && !ft_strncmp(av[1], "-v", 3)))
         fl = visualisation(&ac, &av, &a);
-	else
+	else if (ac > 1)
 	{
-		//printf("ac = %d, av[0] = %s\n", ac, av[0]);
 		fl = reading_args(&ac, &av, &a);
-		//printf("ac = %d, a.size = %d\n", ac, a.size);
-		//i = 0;
-		//while (i < a.size)
-		//	printf("%d", a.data[i++]);
-		/* a.size = ac - 1;
-		a.data = (int *)malloc(sizeof(int) * a.size);
-		i = 0;
-		while (--ac)
-		{
-			if (check_int(av[i + 1]) && ((curr = ft_atoi_long(av[i + 1])) <=
-						MAX_INT && curr >= MIN_INT))
-				(a.data)[i++] = curr;
-			else
-				break ;
-		} */
 		if (ac || check_dupl(a))
 			write(2, "Error\n", 6);
 		else
-		{
-			//printf("stack :");
-			//i = 0;
-			//while (len--)
-			//printf(" %d", stack[i++]);
-			//printf("\nEND_OF_STACK\n");
-			//printf("hear");
 			reading_str(&a);
-		}
     }
-	/*free(a.data);
+	free(a.data);
 	if (!fl)
 	{
 		i = 0;
 		while (av[i])
 			free(av[i++]);
-	} */
+	}
 	return (0);
 }
