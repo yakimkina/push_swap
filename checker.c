@@ -88,15 +88,15 @@ static	void		reading_str(t_stack *a)
 	char			*line;
 
 	fl = 1;
-	line = ft_strnew(3);
+	line = NULL;
 	b.data = NULL;
 	b.size = 0;
 	while (((curr = get_next_line(0, &line)) > 0) && fl)
 	{
 		fl = instruction(line, a, &b);
-		line = ft_strnew(3);
+		free(line);
+		line = NULL;
 	}
-	free(line);
 	if (!curr && fl)
 	{
 		check(*a, b);

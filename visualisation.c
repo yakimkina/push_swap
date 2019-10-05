@@ -98,6 +98,7 @@ static  int		    reading_args_v(int *ac, char ***av, t_stack *a)
         else
             break ;
     }
+    *ac -= i;
     return (fl);
 }
 
@@ -108,16 +109,26 @@ int					reading_str_v(t_mlx *mlx)
 	char			*line;
 
 	fl = 1;
-	line = ft_strnew(3);
+	line = NULL;
 	if ((curr = get_next_line(0, &line)) > 0)
 	{
 		fl = instruction(line, mlx->a, mlx->b);
 		draw(mlx);
 	}
 	free(line);
-	//if (!fl)
-	//	mlx_string_put(mlx.id, mlx.win, WIDTH - 950, HEIGTH / 2, 255, "Error");
 	return (1);
+}
+
+int                 key_press(int keycode, void *param)
+{
+    if (keycode == 53)
+        exit (0);
+    return (1);
+}
+
+int                 esc(void *param)
+{
+    exit (0);
 }
 
 int                 visualisation(int *ac, char ***av, t_stack *a)
@@ -130,11 +141,11 @@ int                 visualisation(int *ac, char ***av, t_stack *a)
     if (!(mlx.win = mlx_new_window(mlx.id, WIDTH, HEIGHT, "push_swap")))
     	exit (0);
     fl = reading_args_v(ac, av, a);
-    if (ac || check_dupl(*a))
-    	mlx_string_put(mlx.id, mlx.win, WIDTH - WIDTH / 2, HEIGHT / 2, 255, "Error"); // ???????
+    if (*ac || check_dupl(*a))
+    	mlx_string_put(mlx.id, mlx.win, WIDTH / 2, HEIGHT / 2, 255, "Error");
     else
     {
-    	mlx.a = a;
+        mlx.a = a;
     	mlx.b->data = NULL;
     	mlx.b->size = 0;
     	if (!(mlx.img = (t_image *)malloc(sizeof(t_image))))
@@ -148,10 +159,10 @@ int                 visualisation(int *ac, char ***av, t_stack *a)
         mlx.h0 = HEIGHT / a->size;
         mlx.c0 = 255 / (float)(a->size);
         draw(&mlx);
-   		mlx_loop_hook(mlx.id, reading_str_v, &mlx);
-    	mlx_loop(mlx.id);
 	}
+    mlx_hook(mlx.win, 2, 1L << 0, key_press, &mlx);
+    mlx_hook(mlx.win, 17, 1L << 17, esc, &mlx);
+    mlx_loop_hook(mlx.id, reading_str_v, &mlx);
+    mlx_loop(mlx.id);
     return (fl);
 }
-
-

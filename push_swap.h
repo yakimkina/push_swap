@@ -19,8 +19,8 @@
 # include <unistd.h>
 # include "mlx/mlx.h"
 # include "stdio.h" //DELETE THIS
-# define HEIGHT 500
-# define WIDTH 1000
+# define HEIGHT 1000
+# define WIDTH 2000
 
 typedef struct		s_stack
 {
