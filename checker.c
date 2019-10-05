@@ -6,38 +6,13 @@
 /*   By: enikole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 19:51:51 by enikole           #+#    #+#             */
-/*   Updated: 2019/09/09 21:22:38 by enikole          ###   ########.fr       */
+/*   Updated: 2019/10/05 18:54:42 by enikole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void				check(t_stack a, t_stack b)
-{
-	int				i;
-	char			fl;
-
-	i = 0;
-	fl = 1;
-	i = 0;
-	while (i < (a.size - 1))
-	{
-		if ((a.data)[i] < (a.data)[i + 1])
-			i++;
-		else
-		{
-			fl = 0;
-			break ;
-		}
-	}
-	fl = (b.data == NULL && b.size == 0) ? (fl) : (0);
-	if (fl)
-		write(1, "OK\n", 3);
-	else
-		write(1, "KO\n", 3);
-}
-
-char		r_instructions(char *line, t_stack *a, t_stack *b)
+char				r_instructions(char *line, t_stack *a, t_stack *b)
 {
 	if (line[1] == 'a' && line[2] == 0)
 		return (rotate(a, NULL));
@@ -57,7 +32,7 @@ char		r_instructions(char *line, t_stack *a, t_stack *b)
 	return (0);
 }
 
-char		instruction(char *line, t_stack *a, t_stack *b)
+char				instruction(char *line, t_stack *a, t_stack *b)
 {
 	if (line[0] == 's')
 	{
@@ -111,22 +86,18 @@ int					main(int ac, char **av)
 	int				i;
 	int				fl;
 
-    if ((ac > 2 && !ft_strncmp(av[1], "-v", 3)))
-        fl = visualisation(&ac, &av, &a);
+	if ((ac > 2 && !ft_strncmp(av[1], "-v", 3)))
+		fl = visualisation(&ac, &av, &a);
 	else if (ac > 1)
 	{
 		fl = reading_args(&ac, &av, &a);
-		if (ac || check_dupl(a))
+		if (ac || check_duplicates(a))
 			write(2, "Error\n", 6);
 		else
 			reading_str(&a);
-    }
+	}
 	free(a.data);
 	if (!fl)
-	{
-		i = 0;
-		while (av[i])
-			free(av[i++]);
-	}
+		free_av(av);
 	return (0);
 }

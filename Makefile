@@ -11,11 +11,11 @@
 # **************************************************************************** #
 
 CHECKER = checker
-CHECKER_SRC = checker.c visualisation.c draw.c
+CHECKER_SRC = checker.c visualisation.c draw.c visual_args.c
 CHECKER_OBJ = $(CHECKER_SRC:.c=.o)
 
 PUSH_SWAP = push_swap
-PUSH_SWAP_SRC = push_swap.c
+PUSH_SWAP_SRC = push_swap.c five_sort.c list_max.c split_b.c split_a.c three_stack_a.c
 PUSH_SWAP_OBJ = $(PUSH_SWAP_SRC:.c=.o)
 
 SRC = instructions.c valid_arg.c

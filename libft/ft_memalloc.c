@@ -22,6 +22,6 @@ void		*ft_memalloc(size_t size)
 	if (!size)
 		return (NULL);
 	if ((str = (void*)malloc(sizeof(void) * (size))) != NULL)
-		ft_bzero(str, size);
+		ft_memset(str, 0, size);
 	return (str);
 }
