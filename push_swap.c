@@ -62,7 +62,7 @@ int					main(int ac, char **av)
 	t_stack			b;
 	int				fl;
 
-	if (ac > 1)
+	if (ac > 1 && av[1][0] != '\0')
 	{
 		fl = reading_args(&ac, &av, &a);
 		if (ac || check_duplicates(a))

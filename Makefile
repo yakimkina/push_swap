@@ -33,16 +33,23 @@ $(CHECKER): $(MLX) $(OBJ) $(LIB) $(CHECKER_OBJ)
 
 $(PUSH_SWAP): $(OBJ) $(LIB) $(PUSH_SWAP_OBJ)
 	gcc -Wall -Wextra -Werror -o $(PUSH_SWAP) -I push_swap.h $(LIB) $(PUSH_SWAP_OBJ) $(OBJ)
+
 %.o: %.c
 	gcc -c $<
+
 $(LIB):
 	make -C ./libft
+
 $(MLX):
 	make -C ./mlx
+
 clean:
 	make clean -C ./libft
+	make clean -C ./mlx
 	rm -rf $(PUSH_SWAP_OBJ) $(CHECKER_OBJ) $(OBJ)
+
 fclean: clean
 	make fclean -C ./libft
 	rm -rf $(CHECKER) $(PUSH_SWAP)
+
 re: fclean all

@@ -12,6 +12,28 @@
 
 #include "push_swap.h"
 
+void			three_sort_stack(t_stack *a)
+{
+	if ((a->data)[0] < (a->data)[1] && (a->data)[1] > (a->data)[2])
+	{
+		rev_rotate(a, "rra\n");
+		if ((a->data)[1] < (a->data)[0])
+			swap(a, "sa\n");
+	}
+	else if ((a->data)[0] > (a->data)[1])
+	{
+		if ((a->data)[0] < (a->data)[2])
+			swap(a, "sa\n");
+		else if ((a->data)[1] < (a->data)[2])
+			rotate(a, "ra\n");
+		else
+		{
+			swap(a, "sa\n");
+			rev_rotate(a, "rra\n");
+		}
+	}
+}
+
 static	void	case_4(t_stack *a, t_stack *b, int med)
 {
 	int			i;

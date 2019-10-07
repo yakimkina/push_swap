@@ -86,18 +86,25 @@ int					main(int ac, char **av)
 	int				i;
 	int				fl;
 
-	if ((ac > 2 && !ft_strncmp(av[1], "-v", 3)))
-		fl = visualisation(&ac, &av, &a);
-	else if (ac > 1)
+	if ((ac > 2 && av[2][0] != '\0' && !ft_strncmp(av[1], "-v", 3)))
 	{
+		fl = visualisation(&ac, &av, &a);
+		free(a.data);
+		if (!fl)
+			free_av(av);
+	}
+	else if (ac > 1 && av[1][0] != '\0')
+	{
+		if (!ft_strncmp(av[1], "-v", 3) && av[2][0] == '\0')
+			exit(0);
 		fl = reading_args(&ac, &av, &a);
 		if (ac || check_duplicates(a))
 			write(2, "Error\n", 6);
 		else
 			reading_str(&a);
+		free(a.data);
+		if (!fl)
+			free_av(av);
 	}
-	free(a.data);
-	if (!fl)
-		free_av(av);
 	return (0);
 }

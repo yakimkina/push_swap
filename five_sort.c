@@ -86,26 +86,12 @@ int				bubble_sort(int *stack, int len)
 	return (tmp);
 }
 
-void			three_sort_stack(t_stack *a)
+static	void	choice_2_or_3(t_stack *a)
 {
-	if ((a->data)[0] < (a->data)[1] && (a->data)[1] > (a->data)[2])
-	{
-		rev_rotate(a, "rra\n");
-		if ((a->data)[1] < (a->data)[0])
-			swap(a, "sa\n");
-	}
-	else if ((a->data)[0] > (a->data)[1])
-	{
-		if ((a->data)[0] < (a->data)[2])
-			swap(a, "sa\n");
-		else if ((a->data)[1] < (a->data)[2])
-			rotate(a, "ra\n");
-		else
-		{
-			swap(a, "sa\n");
-			rev_rotate(a, "rra\n");
-		}
-	}
+	if (a->size == 2 && a->data[0] > a->data[1])
+		swap(a, "sa\n");
+	else if (a->size == 3)
+		three_sort_stack(a);
 }
 
 void			five_sort_stack(t_stack *a, t_stack *b)
@@ -113,11 +99,9 @@ void			five_sort_stack(t_stack *a, t_stack *b)
 	int			med;
 	int			i;
 
-	if (a->size == 2 && a->data[0] > a->data[1])
-		swap(a, "sa\n");
-	else if (a->size == 3)
-		three_sort_stack(a);
-	else if (a->size > 3)
+	if (a->size < 4)
+		choice_2_or_3(a);
+	else
 	{
 		med = bubble_sort(a->data, a->size);
 		i = (a->size % 2 == 0) ? (a->size / 2) : (a->size / 2 + 1);
@@ -128,7 +112,7 @@ void			five_sort_stack(t_stack *a, t_stack *b)
 			else
 				rotate(a, "ra\n");
 		}
-		three_sort_stack(a);
+		choice_2_or_3(a);
 		if (b->size == 2 && b->data[0] < b->data[1])
 			swap(b, "sb\n");
 		while (b->size)
